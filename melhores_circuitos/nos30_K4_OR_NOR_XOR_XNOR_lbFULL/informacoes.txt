@@ -1,0 +1,12 @@
+Nos disponiveis: 30
+Conjunto: K4_OR_NOR_XOR_XNOR
+Portas: or | nor | xor | xnor
+Levels-back: FULL
+Seed: 0
+Portas ativas: 22
+Profundidade maxima: 6
+Fitness: 70 / 70
+Geracao de equivalencia: 7865
+Avaliacoes ate equivalencia: 31461
+Reducao vs benchmark externo: 0.0%
+Reducao vs benchmark interno: -46.666667%

@@ -1,0 +1,12 @@
+Nos disponiveis: 30
+Conjunto: K6_OR_NAND_NOR_XOR_XNOR_NOT
+Portas: or | nand | nor | xor | xnor | not
+Levels-back: 10
+Seed: 0
+Portas ativas: 16
+Profundidade maxima: 7
+Fitness: 70 / 70
+Geracao de equivalencia: 6767
+Avaliacoes ate equivalencia: 27069
+Reducao vs benchmark externo: 27.272727%
+Reducao vs benchmark interno: -6.666667%
