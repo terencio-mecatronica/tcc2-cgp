@@ -1,0 +1,89 @@
+{
+  "versao": "TCC2-ESPACO-BUSCA-v7-WIKI-VALIDACAO",
+  "rodada": "V7-40NOS-K4A7-SEEDS20A46",
+  "total_execucoes": 1728,
+  "execucoes_equivalentes": 1102,
+  "hits_percentual": 63.773148148148145,
+  "fitness_maximo": 70,
+  "fitness_medio": 69.54166666666667,
+  "fitness_mediano": 70.0,
+  "distribuicao_fitness": {
+    "66": 2,
+    "67": 22,
+    "68": 116,
+    "69": 486,
+    "70": 1102
+  },
+  "execucoes_um_erro": 486,
+  "execucoes_dois_erros": 116,
+  "menor_portas_funcional": 13,
+  "maior_portas_funcional": 28,
+  "media_portas_funcionais": 18.735934664246823,
+  "mediana_portas_funcionais": 18.0,
+  "moda_portas_funcionais": 18,
+  "ocorrencias_moda_portas": 211,
+  "q1_portas_funcionais": 17.0,
+  "q3_portas_funcionais": 20.0,
+  "distribuicao_portas_funcionais": {
+    "13": 1,
+    "14": 7,
+    "15": 42,
+    "16": 117,
+    "17": 174,
+    "18": 211,
+    "19": 199,
+    "20": 143,
+    "21": 89,
+    "22": 50,
+    "23": 30,
+    "24": 16,
+    "25": 12,
+    "26": 5,
+    "27": 4,
+    "28": 2
+  },
+  "profundidade_mediana": 7.0,
+  "geracao_equivalencia_mediana": 9267.0,
+  "tempo_total_execucoes_s": 43989.6999,
+  "primitivas_ocorrencias": {
+    "and": 1860,
+    "or": 3720,
+    "nand": 3910,
+    "nor": 3086,
+    "xor": 3405,
+    "xnor": 3366,
+    "not": 1300
+  },
+  "primitivas_circuitos": {
+    "and": 688,
+    "or": 801,
+    "nand": 764,
+    "nor": 750,
+    "xor": 724,
+    "xnor": 714,
+    "not": 578
+  },
+  "primitivas_disponiveis": {
+    "nor": 757,
+    "or": 807,
+    "and": 730,
+    "nand": 766,
+    "xor": 729,
+    "xnor": 722,
+    "not": 639
+  },
+  "hits_por_nos": {
+    "40": {
+      "total": 1728,
+      "sucessos": 1102,
+      "hits_percentual": 63.773148148148145
+    }
+  },
+  "hits_por_levels_back": {
+    "FULL": {
+      "total": 1728,
+      "sucessos": 1102,
+      "hits_percentual": 63.773148148148145
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "schema": 7,
+  "rodada": "2026-10-08_03-32_V7-40NOS-K4A7-SEEDS20A46",
+  "grupos": [
+    {
+      "id": "v7-configuracoes",
+      "titulo": "Comparação entre configurações"
+    },
+    {
+      "id": "v7-qualidade",
+      "titulo": "Qualidade e estrutura dos circuitos"
+    },
+    {
+      "id": "v7-evolucao",
+      "titulo": "Fitness e evolução da busca"
+    },
+    {
+      "id": "v7-desempenho",
+      "titulo": "Tempo e desempenho do código"
+    },
+    {
+      "id": "v7-incerteza",
+      "titulo": "Incerteza e limites da interpretação"
+    },
+    {
+      "id": "v7-detalhes",
+      "titulo": "Circuitos e resultados detalhados"
+    },
+    {
+      "id": "v7-validacao",
+      "titulo": "Validação e reprodução"
+    },
+    {
+      "id": "v7-metodologia",
+      "titulo": "Funcionamento e metodologia"
+    },
+    {
+      "id": "v7-historico",
+      "titulo": "Histórico e referências"
+    },
+    {
+      "id": "v7-documentacao",
+      "titulo": "Documentação do código e etapas posteriores"
+    }
+  ],
+  "portas_funcionais": {
+    "n": 1102,
+    "min": 13.0,
+    "max": 28.0,
+    "media": 18.735934664246823,
+    "mediana": 18.0,
+    "desvio_padrao": 2.273361311051673,
+    "q1": 17.0,
+    "q3": 20.0,
+    "p90": 22.0,
+    "p95": 23.0,
+    "modas": [
+      18.0
+    ],
+    "ocorrencias_moda": 211,
+    "iqr": 3.0
+  },
+  "execucoes": 1728,
+  "equivalentes": 1102
+}

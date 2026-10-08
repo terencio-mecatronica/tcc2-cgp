@@ -1,0 +1,12 @@
+Nos disponiveis: 30
+Conjunto: K7_AND_OR_NAND_NOR_XOR_XNOR_NOT
+Portas: and | or | nand | nor | xor | xnor | not
+Levels-back: FULL
+Seed: 3
+Portas ativas: 15
+Profundidade maxima: 6
+Fitness: 70 / 70
+Geracao de equivalencia: 5577
+Avaliacoes ate equivalencia: 22309
+Reducao vs benchmark externo: 31.818182%
+Reducao vs benchmark interno: 0.0%

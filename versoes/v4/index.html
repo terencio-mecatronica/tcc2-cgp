@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiki Experimental — TCC2 / CGP</title>
+<style>
+:root {
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --text: #20252b;
+    --muted: #68727d;
+    --border: #dce1e6;
+    --accent: #315f8c;
+    --accent-soft: #eaf1f7;
+    --code: #f0f2f4;
+    --success: #2e7d32;
+    --warning: #9a6500;
+    --danger: #a33a3a;
+    --dark: #17212b;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.58;
+}
+.layout {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    min-height: 100vh;
+}
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--dark);
+    color: white;
+    padding: 22px 16px;
+}
+.sidebar h1 { font-size: 20px; margin: 0 0 8px; }
+.sidebar p { color: #c8d0d8; font-size: 13px; }
+.sidebar a {
+    display: block;
+    color: #e7edf3;
+    text-decoration: none;
+    padding: 6px 9px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+.sidebar a:hover { background: rgba(255,255,255,.10); }
+main { max-width: 1380px; width: 100%; margin: 0 auto; padding: 32px; }
+.hero, .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 22px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.hero h2 { margin-top: 0; font-size: 29px; }
+.card h2 { margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+.card h3 { margin-top: 24px; }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+}
+.two-col {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+.metric {
+    background: var(--accent-soft);
+    border-radius: 9px;
+    padding: 14px;
+}
+.metric .value { font-size: 23px; font-weight: 700; color: var(--accent); }
+.metric .label { font-size: 13px; color: var(--muted); margin-top: 3px; }
+.note {
+    background: #f8fafc;
+    border-left: 4px solid var(--accent);
+    padding: 13px 15px;
+    margin: 14px 0;
+    border-radius: 6px;
+}
+.note.warning { border-left-color: var(--warning); background: #fff9ee; }
+.note.success { border-left-color: var(--success); background: #f1faf2; }
+.note.danger { border-left-color: var(--danger); background: #fff3f3; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 14px;
+}
+th, td {
+    border: 1px solid var(--border);
+    padding: 9px 10px;
+    text-align: left;
+    vertical-align: top;
+}
+th { background: #eef2f5; }
+code {
+    background: var(--code);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+pre {
+    background: var(--dark);
+    color: #f3f6f8;
+    padding: 16px;
+    overflow-x: auto;
+    border-radius: 8px;
+}
+.flow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    margin: 16px 0;
+}
+.box {
+    background: var(--accent-soft);
+    border: 1px solid #c8d6e4;
+    padding: 8px 10px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+.arrow { color: var(--muted); }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.badge {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-radius: 14px;
+    padding: 2px 8px;
+    margin: 2px;
+    font-size: 12px;
+}
+.tooltip {
+    position: relative;
+    border-bottom: 1px dotted var(--accent);
+    cursor: help;
+}
+.tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    width: min(360px, 82vw);
+    background: var(--dark);
+    color: white;
+    text-align: left;
+    border-radius: 8px;
+    padding: 10px 12px;
+    position: absolute;
+    z-index: 100;
+    left: 0;
+    bottom: calc(100% + 9px);
+    box-shadow: 0 5px 18px rgba(0,0,0,.25);
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: normal;
+    transition: opacity .15s ease;
+}
+.tooltip:hover .tooltip-text,
+.tooltip:focus .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+@media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { position: relative; height: auto; }
+    main { padding: 18px; }
+    .two-col { grid-template-columns: 1fr; }
+    .tooltip-text {
+        position: fixed;
+        left: 8%;
+        right: 8%;
+        bottom: 20px;
+        width: auto;
+    }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<aside class="sidebar">
+    <h1>CGP — Wiki TCC2</h1>
+    <p>Memorial metodologico + relatorio experimental gerado pelo Python.</p>
+    <a href="#inicio">Inicio</a>
+<a href="#integridade-v4">Integridade da rodada</a>
+    <a href="#continuidade">TCC1 → TCC2</a>
+    <a href="#fontes">Hierarquia documental</a>
+    <a href="#benchmarks">Benchmarks</a>
+    <a href="#dimensoes">Dimensoes</a>
+    <a href="#portas">Conjuntos de portas</a>
+    <a href="#levels-back">Levels-back</a>
+    <a href="#dont-care">BCD 10–15</a>
+    <a href="#representacao">Representacao</a>
+    <a href="#evolucao">Evolucao e mutacao</a>
+    <a href="#espaco">Espaco de busca</a>
+    <a href="#metricas">Metricas</a>
+    <a href="#resultados">Leitura da rodada</a>
+    <a href="#melhores-circuitos">Melhores circuitos</a>
+    <a href="#hipoteses">Hipoteses</a>
+    <a href="#futuro">Dimensoes futuras</a>
+    <a href="#nao-inferir">Limites de interpretacao</a>
+    <a href="#variaveis">Variaveis</a>
+    <a href="#funcoes">Funcoes</a>
+    <a href="#arquivos">Rastreabilidade</a>
+    <a href="#quartus">Validacao FPGA</a>
+    <a href="#reprodutibilidade">Reprodutibilidade</a>
+    <a href="#execucoes">Execucoes</a>
+</aside>
+
+<main>
+
+<section id="inicio" class="hero">
+    <h2>Caracterizacao experimental do espaco de busca da CGP</h2>
+    <p>
+        Esta Wiki documenta o raciocinio metodologico do TCC2 e acompanha os
+        resultados produzidos pelo programa. O objetivo nao e apenas encontrar um
+        circuito pequeno, mas investigar como diferentes configuracoes do espaco de
+        busca influenciam a equivalencia funcional, a complexidade das solucoes e o
+        esforco computacional.
+    </p>
+    <div class="grid">
+        <div class="metric"><div class="value">1920</div><div class="label">execucoes registradas</div></div>
+        <div class="metric"><div class="value">373</div><div class="label">execucoes equivalentes</div></div>
+        <div class="metric"><div class="value">19.43%</div><div class="label">Hits da rodada</div></div>
+        <div class="metric"><div class="value">14</div><div class="label">melhor numero de portas ativas</div></div>
+        <div class="metric"><div class="value">36.36%</div><div class="label">reducao do melhor vs 22</div></div>
+        <div class="metric"><div class="value">6.67%</div><div class="label">reducao do melhor vs 15</div></div>
+    </div>
+    <p class="small muted">
+        Rodada: TESTE-01 · versao: TCC2-ESPACO-BUSCA-v4-AUDIT-COMPACT<br>
+        Melhor configuracao observada: nos=30 · K4_NAND_NOR_XOR_NOT · LB=FULL · seed=3<br>
+        Wiki gerada em: 2026-10-07 10:12:59
+    </p>
+</section>
+
+<section id="integridade-v4" class="card">
+
+    <h2>Integridade tecnica da rodada</h2>
+
+    <div class="grid">
+
+        <div class="metric">
+            <div class="value">1920</div>
+            <div class="label">planejadas</div>
+        </div>
+
+        <div class="metric">
+            <div class="value">1920</div>
+            <div class="label">tentativas registradas</div>
+        </div>
+
+        <div class="metric">
+            <div class="value">1920</div>
+            <div class="label">concluidas</div>
+        </div>
+
+        <div class="metric">
+            <div class="value">0</div>
+            <div class="label">erros tecnicos</div>
+        </div>
+
+        <div class="metric">
+            <div class="value">0</div>
+            <div class="label">sem registro</div>
+        </div>
+
+        <div class="metric">
+            <div class="value">373</div>
+            <div class="label">equivalentes</div>
+        </div>
+
+        <div class="metric">
+            <div class="value">100.00%</div>
+            <div class="label">cobertura tecnica</div>
+        </div>
+
+        <div class="metric">
+            <div class="value">19.43%</div>
+            <div class="label">Hits entre concluidas</div>
+        </div>
+
+    </div>
+
+    <div style="border-left:5px solid #166534;background:#dcfce7;color:#166534; padding:16px; margin-top:18px; border-radius:8px;">
+
+        <strong>Rodada tecnicamente completa</strong>
+
+        <p>
+            Todas as execucoes planejadas foram concluidas sem erro tecnico.
+        </p>
+
+    </div>
+
+    <div class="note">
+
+        <strong>
+            Erro tecnico nao e falha evolutiva.
+        </strong>
+
+        <p>
+            Uma execucao que termina normalmente sem
+            encontrar equivalencia representa uma falha
+            evolutiva dentro do orcamento testado.
+        </p>
+
+        <p>
+            Uma execucao interrompida por excecao de
+            software nao fornece evidencia sobre a
+            capacidade daquela configuracao.
+        </p>
+
+    </div>
+
+    
+
+</section>
+
+
+<section id="continuidade" class="card">
+    <h2>1. Continuidade do TCC1 para o TCC2</h2>
+    <p>
+        O TCC1 ja sustenta o nucleo da investigacao: ampliar/explorar o espaco de
+        busca da CGP por meio do <strong>numero de nos</strong>, das
+        <strong>conexoes</strong> e dos <strong>tipos de portas logicas</strong>,
+        mantendo a equivalencia funcional do decodificador BCD–7 segmentos.
+    </p>
+    <table>
+        <tr><th>Elemento</th><th>Status</th><th>Como aparece no TCC2</th></tr>
+        <tr><td>Numero de nos</td><td>Explicito no TCC1</td><td>Dimensao experimental principal.</td></tr>
+        <tr><td>Tipos de portas</td><td>Explicito no TCC1</td><td>Dimensao principal, agora sistematizada por combinacoes.</td></tr>
+        <tr><td>Conexoes</td><td>Conceitualmente presente no TCC1</td><td>Operacionalizada por <code>levels-back</code>.</td></tr>
+        <tr><td>Todas as 127 combinacoes de portas</td><td>Ampliacao do TCC2</td><td>Exploracao sistematica do repertorio logico.</td></tr>
+        <tr><td>Valores especificos de levels-back</td><td>Ampliacao do TCC2</td><td>Transforma “conexoes” em variavel controlavel e mensuravel.</td></tr>
+        <tr><td>Hits, MES e espaco genotipico</td><td>Aprofundamento metodologico</td><td>Permitem caracterizar robustez e esforco da busca.</td></tr>
+    </table>
+    <div class="note success">
+        A estrategia <strong>(1+4)</strong>, a mutacao baseada em genes ativos e a
+        validacao pela tabela verdade permanecem como controles do experimento. Isso
+        ajuda a atribuir as diferencas observadas as configuracoes do espaco de busca.
+    </div>
+    <div class="note warning">
+        O TCC2 nao deve afirmar que o TCC1 ja definiu 127 combinacoes ou uma grade
+        completa de levels-back. Essas escolhas sao uma <strong>extensao coerente</strong>
+        do problema apresentado, nao uma reproducao literal do planejamento anterior.
+    </div>
+</section>
+
+<section id="fontes" class="card">
+    <h2>2. Hierarquia documental adotada</h2>
+    <table>
+        <tr><th>Documento</th><th>Papel no TCC2</th></tr>
+        <tr><td>Manfrini (2017)</td><td>Base metodologica para CGP, neutralidade, topologia, levels-back, semeadura, SAM, Hits e MES.</td></tr>
+        <tr><td>Almeida (2023)</td><td>Predecessor direto no problema BCD–7 segmentos; registra entradas 10–15 como X, resultado de 15 nos ativos e referencia externa de 22 portas.</td></tr>
+        <tr><td>Resumo LNCC (2026)</td><td>Registro historico da apresentacao; possui inconsistencias conhecidas nas contagens/legendas 19/21 e nao e usado como fonte numerica principal.</td></tr>
+        <tr><td>Apresentado TCC1 (2026)</td><td>Base correta mais recente para problema, objetivos, metodologia e continuidade para o TCC2.</td></tr>
+    </table>
+    <div class="note warning">
+        Para os resultados historicos, esta Wiki adota <strong>22 portas</strong> como
+        benchmark externo e <strong>15 portas</strong> como melhor resultado interno.
+        O resumo do LNCC e preservado como parte da historia do projeto, mas suas
+        contagens 19/21 nao sao usadas como referencia oficial.
+    </div>
+</section>
+
+<section id="benchmarks" class="card">
+    <h2>3. Dois benchmarks complementares</h2>
+    <div class="two-col">
+        <div class="metric">
+            <div class="value">22</div>
+            <div class="label">benchmark externo</div>
+            <p class="small">Almeida (2023) e Apresentado TCC 1 (2026), com referencia a Miller (2011)</p>
+        </div>
+        <div class="metric">
+            <div class="value">15</div>
+            <div class="label">benchmark interno</div>
+            <p class="small">Almeida (2023) e Apresentado TCC 1 (2026)</p>
+        </div>
+    </div>
+    <p>
+        O benchmark externo responde quanto a solucao reduz em relacao a referencia
+        historica de 22 portas. O benchmark interno e mais exigente: verifica se o
+        TCC2 supera o melhor resultado anterior da propria linha de pesquisa, com 15.
+    </p>
+    <pre>reducao (%) = 100 × (benchmark − portas_ativas_CGP) / benchmark</pre>
+    <div class="note warning">
+        A contagem de 22 portas e registrada como referencia documental. O programa
+        nao inventa o netlist correspondente; seu desenho automatico so deve ser
+        habilitado quando a topologia exata da fonte adotada estiver cadastrada e auditada.
+    </div>
+</section>
+
+<section id="dimensoes" class="card">
+    <h2>4. Dimensoes experimentais do nucleo principal</h2>
+    <table>
+        <tr><th>Papel</th><th>Variavel</th><th>Interpretacao</th></tr>
+        <tr><td><strong>Dimensao 1</strong></td><td>Numero de nos</td><td>Capacidade estrutural maxima disponibilizada ao genotipo.</td></tr>
+        <tr><td><strong>Dimensao 2</strong></td><td>Levels-back</td><td>Restricao de conectividade aplicada durante toda a evolucao.</td></tr>
+        <tr><td><strong>Dimensao 3</strong></td><td>Conjunto de portas</td><td>Repertorio de primitivas logicas disponivel ao longo da busca.</td></tr>
+        <tr><td>Repeticao</td><td>Seed</td><td>Replica estocastica; nao e dimensao do espaco de busca.</td></tr>
+        <tr><td>Controle</td><td>(1 + 4)</td><td>Estrategia evolutiva mantida fixa.</td></tr>
+        <tr><td>Controle</td><td>BCD 10–15 = don't care</td><td>Preserva a definicao funcional historica do problema.</td></tr>
+        <tr><td>Orcamento</td><td>nmax = 10000</td><td>Limite de busca utilizado para comparar as configuracoes.</td></tr>
+    </table>
+    <div class="flow">
+        <div class="box">Nos</div><div class="arrow">×</div>
+        <div class="box">Levels-back</div><div class="arrow">×</div>
+        <div class="box">Conjunto de portas</div><div class="arrow">×</div>
+        <div class="box">Seeds</div><div class="arrow">→</div>
+        <div class="box">Hits / MES / complexidade</div>
+    </div>
+</section>
+
+<section id="portas" class="card">
+    <h2>5. Conjunto de portas como dimensao sistematica</h2>
+    <p>
+        Os antigos G1/G2 foram configuracoes utilizadas no desenvolvimento inicial.
+        Eles nao sao tratados como conjuntos definitivos do TCC2. O programa parte do
+        universo <strong>AND, OR, NAND, NOR, XOR, XNOR, NOT</strong> e gera
+        automaticamente subconjuntos sem repeticao.
+    </p>
+    <div class="grid">
+        <div class="metric"><div class="value">7</div><div class="label">primitivas do universo</div></div>
+        <div class="metric"><div class="value">127</div><div class="label">subconjuntos nao vazios possiveis</div></div>
+        <div class="metric"><div class="value">64</div><div class="label">conjuntos configurados</div></div>
+        <div class="metric"><div class="value">1920</div><div class="label">execucoes planejadas pelas listas atuais</div></div>
+        <div class="metric"><div class="value">76801920</div><div class="label">avaliacoes no pior caso do lote</div></div>
+    </div>
+    <table>
+        <tr><th># tipos no conjunto</th><th># combinacoes configuradas</th></tr>
+        <tr><td>4</td><td>35</td></tr><tr><td>5</td><td>21</td></tr><tr><td>6</td><td>7</td></tr><tr><td>7</td><td>1</td></tr>
+    </table>
+    <h3>Conjuntos historicos</h3>
+    <table>
+        <tr><th>Nome</th><th>Portas</th><th>Papel</th></tr>
+        <tr><td>HIST_G1</td><td>AND, OR, XOR, NAND</td><td>Referencia historica; nao limita o conjunto de configuracoes do TCC2.</td></tr><tr><td>HIST_G2</td><td>NOR, OR, XNOR, NAND, NOT</td><td>Referencia historica; nao limita o conjunto de configuracoes do TCC2.</td></tr>
+    </table>
+    <div class="note">
+        Conjuntos unitarios permanecem no estudo mesmo quando apresentem baixo
+        desempenho. Falhar em varias repeticoes e um resultado experimental sobre
+        aquela configuracao; nao e motivo para apagar o caso.
+    </div>
+    <div class="note warning">
+        Mais tipos de portas aumentam a expressividade disponivel, mas tambem multiplicam
+        os alelos de funcao de cada no e ampliam o espaco genotipico. Portanto, “mais
+        portas disponiveis” nao e assumido como “melhor desempenho”.
+    </div>
+</section>
+
+<section id="levels-back" class="card">
+    <h2>6. Definicao operacional de levels-back</h2>
+    <p>
+        A representacao atual e linear. Para <code>levels-back = L</code>, cada no
+        pode receber sinais das quatro entradas primarias e dos <strong>L nos
+        imediatamente anteriores</strong>. Em <code>FULL</code>, todos os nos
+        anteriores ficam disponiveis.
+    </p>
+    <p>
+        Essa regra e aplicada tanto na <strong>inicializacao</strong> quanto nas
+        <strong>mutacoes</strong>. Portanto, no TCC2 o levels-back restringe o
+        espaco de busca durante toda a evolucao, e nao somente a semeadura inicial.
+    </p>
+    <p>
+        Com <code>LEVELS_BACK_RESTRINGE_SAIDAS=False</code>,
+        as saidas seguem a mesma politica: para L finito, podem apontar para os L
+        ultimos nos do cromossomo e, quando permitido, diretamente para as entradas.
+    </p>
+    <table>
+        <tr><th>Configuracao</th><th>Nos internos</th><th>Genes de saida</th></tr>
+        <tr><td>FULL</td><td>entradas + qualquer no anterior</td><td>entradas permitidas + qualquer no</td></tr>
+        <tr><td>L finito</td><td>entradas + L nos anteriores</td><td>entradas permitidas + L ultimos nos</td></tr>
+    </table>
+    <div class="note warning">
+        Na formulacao cartesiana classica discutida por Manfrini, levels-back e expresso
+        em <strong>colunas</strong> de uma matriz <code>n_r × n_c</code>. O codigo
+        atual operacionaliza a ideia como uma janela linear de nos. Isso deve ser
+        declarado explicitamente e nao confundido com uma implementacao matricial completa.
+    </div>
+</section>
+
+<section id="dont-care" class="card">
+    <h2>7. BCD 10–15: tratamento oficial como don't care</h2>
+    <p>
+        O protocolo principal avalia apenas os digitos 0 a 9. As combinacoes binárias
+        10 a 15 nao contribuem para o fitness. Com sete saidas, o fitness funcional
+        maximo e <strong>70 = 10 × 7</strong>.
+    </p>
+    <div class="note success">
+        Essa escolha preserva a comparabilidade com o trabalho anterior, cuja tabela
+        verdade marca as combinacoes 10–15 como X.
+    </div>
+    <div class="note warning">
+        Forcar as sete saidas para zero em 10–15 define outra funcao logica.
+        Resultados dessa variante podem ser estudados separadamente, mas nao devem ser
+        comparados diretamente com os benchmarks 22/15 sem declarar a mudanca.
+    </div>
+</section>
+
+<section id="representacao" class="card">
+    <h2>8. Representacao do individuo e neutralidade</h2>
+    <pre>no_i = [fonte_1] [fonte_2] [funcao]
+...
+saidas = [a] [b] [c] [d] [e] [f] [g]
+fitness</pre>
+    <p>
+        <strong>Nos disponiveis</strong> definem o comprimento estrutural maximo do
+        cromossomo. <strong>Nos ativos</strong> sao apenas aqueles que influenciam
+        alguma saida e constituem a medida estrutural principal da solucao.
+    </p>
+    <p>
+        A porta NOT e unaria, mas a codificacao mantem dois genes de conexao por no.
+        Assim, o segundo gene de uma NOT fica codificado sem afetar o fenotipo.
+        Essa redundancia e um dos motivos pelos quais o numero de genotipos nao equivale
+        ao numero de circuitos funcionalmente distintos.
+    </p>
+</section>
+
+<section id="evolucao" class="card">
+    <h2>9. Evolucao, selecao e precisao sobre SAM</h2>
+    <p>
+        A estrategia permanece <strong>(1 + 4)</strong>: um pai e
+        comparado com 4 descendentes. Antes da equivalencia, empates de
+        fitness permitem deriva neutra; depois da equivalencia, o criterio de selecao
+        favorece circuitos com menos nos ativos.
+    </p>
+    <div class="note warning">
+        <strong>Precisao terminologica:</strong> Manfrini descreve o SAM de Goldman
+        e Punch como um processo iterativo em que zero ou mais genes inativos podem ser
+        alterados ate que exatamente um gene ativo seja modificado. O codigo atual usa
+        <code>SINGLE_ATIVO_DIRETO</code>: escolhe diretamente um gene ativo
+        efetivamente mutavel. Ele preserva a ideia de garantir alteracao do material
+        ativo, mas nao e uma reproducao literal do procedimento iterativo original.
+    </div>
+    <p>
+        Em conjuntos com uma unica primitiva, o gene de funcao nao entra na lista de
+        genes mutaveis, porque nao existe outro alelo de funcao permitido. O mesmo
+        principio e aplicado a genes de conexao/saida quando nao existe alternativa.
+    </p>
+</section>
+
+<section id="espaco" class="card">
+    <h2>10. Espaco de busca genotipico</h2>
+    <p>
+        Para um no com duas conexoes codificadas, <code>C_i</code> fontes permitidas
+        por conexao e <code>F</code> tipos de porta:
+    </p>
+    <pre>S_i = C_i² × F
+
+S_total = produto(S_i) × (opcoes_de_saida)^(7)</pre>
+    <table>
+        <tr><th>Grandeza da configuracao atualmente carregada</th><th>Valor</th></tr>
+        <tr><td>Nos</td><td>40</td></tr>
+        <tr><td>Portas</td><td>AND, OR, NAND, NOR, XOR, XNOR, NOT</td></tr>
+        <tr><td>Levels-back</td><td>10</td></tr>
+        <tr><td>Opcoes por saida</td><td>44</td></tr>
+        <tr><td>Espaco genotipico</td><td><code>1282420963332509924989805604685892473370341668484768850031641632869565863419683105005091307259355015988352174904781377864319631360000</code></td></tr>
+        <tr><td>log10 do espaco</td><td><code>132.108031</code></td></tr>
+        <tr><td>Reducao em relacao ao FULL</td><td><code>100.00%</code></td></tr>
+    </table>
+    <div class="note warning">
+        Este valor conta <strong>genotipos da codificacao</strong>. Diferentes
+        genotipos podem resultar no mesmo fenotipo ou na mesma funcao, especialmente
+        por neutralidade e pela segunda conexao inutilizada de NOT.
+    </div>
+</section>
+
+<section id="metricas" class="card">
+    <h2>11. Metricas oficiais</h2>
+    <table>
+        <tr><th>Metrica</th><th>Interpretacao</th></tr>
+        <tr><td><span class="tooltip" tabindex="0">Hits<span class="tooltip-text">Percentual de execucoes independentes que atingem equivalencia funcional.</span></span></td><td>Robustez/capacidade de sucesso da configuracao.</td></tr>
+        <tr><td><span class="tooltip" tabindex="0">MES<span class="tooltip-text">Median Evaluations to Success: mediana das avaliacoes ate a primeira equivalencia entre execucoes bem-sucedidas.</span></span></td><td>Esforco de busca, alinhado ao tipo de analise empregado por Manfrini.</td></tr>
+        <tr><td>Fitness</td><td>Quantidade de bits corretos entre os 70 bits relevantes da tabela verdade.</td></tr>
+        <tr><td>Nos/portas ativos</td><td>Complexidade estrutural do fenotipo.</td></tr>
+        <tr><td>Profundidade maxima</td><td>Maior caminho logico entre entradas e saidas.</td></tr>
+        <tr><td>Avaliacoes ate equivalencia</td><td>Esforco ate a primeira solucao funcional.</td></tr>
+        <tr><td>Geracao de equivalencia</td><td>Momento geracional da primeira equivalencia.</td></tr>
+        <tr><td>Tempo</td><td>Custo computacional, dependente do ambiente de execucao.</td></tr>
+        <tr><td>Distribuicao de portas</td><td>Composicao da solucao ativa.</td></tr>
+        <tr><td>Espaco de busca log10</td><td>Escala da quantidade de genotipos permitidos.</td></tr>
+        <tr><td>Reducao vs 22 / vs 15</td><td>Comparacao com benchmark externo e melhor resultado interno anterior.</td></tr>
+    </table>
+</section>
+
+<section id="resultados" class="card">
+    <h2>12. Leitura automatica da rodada</h2>
+    <p>
+        Estas tabelas sao descritivas. Elas ajudam a localizar tendencias, mas nao
+        transformam automaticamente uma diferenca observada em causalidade ou
+        significancia estatistica.
+    </p>
+
+    <h3>Por quantidade de tipos de porta</h3>
+    <table>
+        <tr><th># tipos</th><th>Exec.</th><th>Sucessos</th><th>Hits</th><th>MES</th><th>Melhor portas</th><th>Mediana portas</th><th>Mediana profundidade</th></tr>
+        <tr><td>4</td><td>1050</td><td>173</td><td>16.48%</td><td>24733</td><td>14</td><td>20</td><td>8</td></tr><tr><td>5</td><td>630</td><td>127</td><td>20.16%</td><td>24021</td><td>14</td><td>20</td><td>8</td></tr><tr><td>6</td><td>210</td><td>62</td><td>29.52%</td><td>28035</td><td>15</td><td>20</td><td>7</td></tr><tr><td>7</td><td>30</td><td>11</td><td>36.67%</td><td>27365</td><td>15</td><td>19</td><td>7</td></tr>
+    </table>
+
+    <h3>Por numero de nos disponiveis</h3>
+    <table>
+        <tr><th>Nos</th><th>Exec.</th><th>Sucessos</th><th>Hits</th><th>MES</th><th>Melhor portas</th><th>Mediana portas</th><th>Mediana profundidade</th></tr>
+        <tr><td>30</td><td>960</td><td>118</td><td>12.29%</td><td>27663</td><td>14</td><td>19</td><td>7</td></tr><tr><td>40</td><td>960</td><td>255</td><td>26.56%</td><td>24045</td><td>14</td><td>20</td><td>8</td></tr>
+    </table>
+
+    <h3>Por levels-back</h3>
+    <table>
+        <tr><th>LB</th><th>Exec.</th><th>Sucessos</th><th>Hits</th><th>MES</th><th>Melhor portas</th><th>Mediana portas</th><th>Mediana profundidade</th></tr>
+        <tr><td>FULL</td><td>640</td><td>169</td><td>26.41%</td><td>23505</td><td>14</td><td>19</td><td>7</td></tr><tr><td>5</td><td>640</td><td>50</td><td>7.81%</td><td>27665</td><td>16</td><td>21</td><td>11</td></tr><tr><td>10</td><td>640</td><td>154</td><td>24.06%</td><td>26853</td><td>15</td><td>20</td><td>8</td></tr>
+    </table>
+</section>
+
+<section id="melhores-circuitos" class="card">
+    <h2>13. Melhor circuito de cada configuracao</h2>
+    <p>
+        Apenas solucoes funcionalmente equivalentes participam da selecao. A ordem de
+        desempate e: <strong>menos portas ativas</strong>,
+        <strong>menor profundidade</strong>,
+        <strong>menos avaliacoes ate equivalencia</strong> e
+        <strong>menor geracao de equivalencia</strong>.
+    </p>
+    <table>
+        <tr>
+            <th>Nos</th><th>Conjunto</th><th>LB</th><th>Seed</th>
+            <th>Portas</th><th>Prof.</th><th>Aval. ate equiv.</th>
+            <th>vs 22</th><th>vs 15</th><th>Circuito</th>
+        </tr>
+        <tr><td>30</td><td>K4_AND_NAND_NOR_XNOR</td><td>FULL</td><td>1</td><td><strong>16</strong></td><td>7</td><td>17429</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos30_K4_AND_NAND_NOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_NAND_NOR_XNOR</td><td>10</td><td>2</td><td><strong>16</strong></td><td>6</td><td>35013</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos30_K4_AND_NAND_NOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_NAND_NOR_XOR</td><td>FULL</td><td>1</td><td><strong>19</strong></td><td>6</td><td>29353</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K4_AND_NAND_NOR_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_NAND_NOR_XOR</td><td>10</td><td>2</td><td><strong>23</strong></td><td>9</td><td>32201</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_NAND_NOR_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_NAND_XNOR_NOT</td><td>10</td><td>1</td><td><strong>20</strong></td><td>7</td><td>34329</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_NAND_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_NAND_XOR_NOT</td><td>FULL</td><td>1</td><td><strong>17</strong></td><td>4</td><td>27309</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_NAND_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_NOR_XOR_XNOR</td><td>10</td><td>0</td><td><strong>23</strong></td><td>9</td><td>23317</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NAND_NOR</td><td>FULL</td><td>1</td><td><strong>19</strong></td><td>8</td><td>38417</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NAND_NOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NAND_XNOR</td><td>FULL</td><td>3</td><td><strong>17</strong></td><td>9</td><td>28273</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NAND_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NAND_XNOR</td><td>5</td><td>1</td><td><strong>21</strong></td><td>12</td><td>34113</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NAND_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NAND_XNOR</td><td>10</td><td>0</td><td><strong>17</strong></td><td>7</td><td>35165</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NAND_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NAND_XOR</td><td>FULL</td><td>3</td><td><strong>17</strong></td><td>6</td><td>20537</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NAND_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NAND_XOR</td><td>10</td><td>3</td><td><strong>16</strong></td><td>7</td><td>9581</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NAND_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NOR_XNOR</td><td>FULL</td><td>2</td><td><strong>15</strong></td><td>5</td><td>29813</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NOR_XNOR</td><td>5</td><td>0</td><td><strong>19</strong></td><td>8</td><td>15705</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NOR_XOR</td><td>FULL</td><td>4</td><td><strong>18</strong></td><td>6</td><td>5193</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NOR_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_NOR_XOR</td><td>10</td><td>3</td><td><strong>19</strong></td><td>7</td><td>24365</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_NOR_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>18</strong></td><td>8</td><td>30853</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_XNOR_NOT</td><td>10</td><td>4</td><td><strong>22</strong></td><td>9</td><td>39533</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_XOR_XNOR</td><td>FULL</td><td>3</td><td><strong>15</strong></td><td>6</td><td>16521</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_XOR_XNOR</td><td>5</td><td>0</td><td><strong>23</strong></td><td>12</td><td>15125</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_AND_OR_XOR_XNOR</td><td>10</td><td>3</td><td><strong>20</strong></td><td>11</td><td>26085</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K4_AND_OR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_NAND_NOR_XOR_NOT</td><td>FULL</td><td>3</td><td><strong>14</strong></td><td>7</td><td>17925</td><td>36.36%</td><td>6.67%</td><td><a href="melhores_circuitos/nos30_K4_NAND_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_NAND_NOR_XOR_NOT</td><td>5</td><td>4</td><td><strong>20</strong></td><td>9</td><td>17701</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K4_NAND_NOR_XOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_NAND_NOR_XOR_NOT</td><td>10</td><td>2</td><td><strong>18</strong></td><td>7</td><td>32265</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K4_NAND_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_NAND_NOR_XOR_XNOR</td><td>10</td><td>3</td><td><strong>17</strong></td><td>7</td><td>23289</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K4_NAND_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_NAND_XOR_XNOR_NOT</td><td>FULL</td><td>3</td><td><strong>22</strong></td><td>8</td><td>29489</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos30_K4_NAND_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_NOR_XNOR</td><td>FULL</td><td>3</td><td><strong>17</strong></td><td>7</td><td>18449</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_NOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_NOR_XNOR</td><td>5</td><td>0</td><td><strong>22</strong></td><td>11</td><td>39249</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_NOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_NOR_XNOR</td><td>10</td><td>0</td><td><strong>20</strong></td><td>11</td><td>34465</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_NOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_NOR_XOR</td><td>FULL</td><td>4</td><td><strong>15</strong></td><td>8</td><td>12849</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_NOR_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_NOR_XOR</td><td>5</td><td>0</td><td><strong>21</strong></td><td>10</td><td>20133</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_NOR_XOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_NOR_XOR</td><td>10</td><td>4</td><td><strong>19</strong></td><td>9</td><td>23509</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_NOR_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>18</strong></td><td>6</td><td>14949</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_XNOR_NOT</td><td>10</td><td>1</td><td><strong>19</strong></td><td>9</td><td>27109</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_XOR_NOT</td><td>5</td><td>4</td><td><strong>22</strong></td><td>13</td><td>38561</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_XOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_XOR_NOT</td><td>10</td><td>3</td><td><strong>18</strong></td><td>6</td><td>21917</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NAND_XOR_XNOR</td><td>FULL</td><td>1</td><td><strong>22</strong></td><td>7</td><td>18813</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos30_K4_OR_NAND_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NOR_XOR_NOT</td><td>FULL</td><td>0</td><td><strong>19</strong></td><td>7</td><td>37137</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K4_OR_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NOR_XOR_NOT</td><td>10</td><td>1</td><td><strong>23</strong></td><td>9</td><td>33273</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos30_K4_OR_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_NOR_XOR_XNOR</td><td>FULL</td><td>0</td><td><strong>22</strong></td><td>6</td><td>31461</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos30_K4_OR_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K4_OR_XOR_XNOR_NOT</td><td>FULL</td><td>1</td><td><strong>21</strong></td><td>6</td><td>31733</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos30_K4_OR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_NAND_NOR_XOR_XNOR</td><td>FULL</td><td>1</td><td><strong>20</strong></td><td>6</td><td>15269</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_NAND_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_NOR_NOT</td><td>5</td><td>3</td><td><strong>18</strong></td><td>8</td><td>25605</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_NOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_NOR_XNOR</td><td>5</td><td>3</td><td><strong>21</strong></td><td>11</td><td>38993</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_NOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_NOR_XNOR</td><td>10</td><td>1</td><td><strong>17</strong></td><td>5</td><td>32305</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_NOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_NOR_XOR</td><td>FULL</td><td>3</td><td><strong>16</strong></td><td>6</td><td>31637</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_NOR_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_NOR_XOR</td><td>10</td><td>3</td><td><strong>17</strong></td><td>6</td><td>12313</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_NOR_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_XNOR_NOT</td><td>FULL</td><td>1</td><td><strong>20</strong></td><td>7</td><td>28049</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_XNOR_NOT</td><td>10</td><td>1</td><td><strong>19</strong></td><td>9</td><td>17521</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_XOR_NOT</td><td>FULL</td><td>0</td><td><strong>19</strong></td><td>7</td><td>37381</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_XOR_NOT</td><td>10</td><td>2</td><td><strong>18</strong></td><td>7</td><td>14341</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NAND_XOR_XNOR</td><td>FULL</td><td>1</td><td><strong>17</strong></td><td>8</td><td>18249</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NAND_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XNOR_NOT</td><td>FULL</td><td>4</td><td><strong>24</strong></td><td>8</td><td>39637</td><td>-9.09%</td><td>-60.00%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XNOR_NOT</td><td>5</td><td>1</td><td><strong>20</strong></td><td>11</td><td>18001</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>18</strong></td><td>8</td><td>27029</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XOR_NOT</td><td>FULL</td><td>2</td><td><strong>17</strong></td><td>6</td><td>34817</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XOR_NOT</td><td>5</td><td>0</td><td><strong>20</strong></td><td>7</td><td>9057</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XOR_NOT</td><td>10</td><td>3</td><td><strong>22</strong></td><td>8</td><td>34525</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XOR_XNOR</td><td>FULL</td><td>3</td><td><strong>19</strong></td><td>10</td><td>24245</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XOR_XNOR</td><td>5</td><td>3</td><td><strong>19</strong></td><td>11</td><td>31469</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_AND_OR_NOR_XOR_XNOR</td><td>10</td><td>2</td><td><strong>20</strong></td><td>8</td><td>31829</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K5_AND_OR_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_NAND_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>1</td><td><strong>16</strong></td><td>6</td><td>17161</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos30_K5_NAND_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_OR_NAND_NOR_XNOR_NOT</td><td>FULL</td><td>3</td><td><strong>17</strong></td><td>8</td><td>16277</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K5_OR_NAND_NOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_OR_NAND_NOR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>20</strong></td><td>8</td><td>26285</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K5_OR_NAND_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_OR_NAND_NOR_XOR_NOT</td><td>10</td><td>1</td><td><strong>21</strong></td><td>7</td><td>15933</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos30_K5_OR_NAND_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_OR_NAND_NOR_XOR_XNOR</td><td>FULL</td><td>4</td><td><strong>14</strong></td><td>7</td><td>18265</td><td>36.36%</td><td>6.67%</td><td><a href="melhores_circuitos/nos30_K5_OR_NAND_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_OR_NAND_NOR_XOR_XNOR</td><td>10</td><td>4</td><td><strong>17</strong></td><td>7</td><td>16725</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K5_OR_NAND_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K5_OR_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>18</strong></td><td>7</td><td>32025</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K5_OR_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_NAND_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>1</td><td><strong>16</strong></td><td>7</td><td>28405</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos30_K6_AND_NAND_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_NOR_XNOR_NOT</td><td>FULL</td><td>3</td><td><strong>18</strong></td><td>5</td><td>15509</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_NOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_NOR_XNOR_NOT</td><td>10</td><td>4</td><td><strong>18</strong></td><td>6</td><td>35797</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_NOR_XOR_NOT</td><td>FULL</td><td>0</td><td><strong>17</strong></td><td>6</td><td>5593</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_NOR_XOR_NOT</td><td>10</td><td>4</td><td><strong>21</strong></td><td>8</td><td>38493</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_NOR_XOR_XNOR</td><td>FULL</td><td>4</td><td><strong>15</strong></td><td>7</td><td>28017</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_NOR_XOR_XNOR</td><td>5</td><td>4</td><td><strong>21</strong></td><td>10</td><td>37645</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_NOR_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_NOR_XOR_XNOR</td><td>10</td><td>0</td><td><strong>17</strong></td><td>6</td><td>24761</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_XOR_XNOR_NOT</td><td>FULL</td><td>1</td><td><strong>15</strong></td><td>7</td><td>30785</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NAND_XOR_XNOR_NOT</td><td>10</td><td>0</td><td><strong>20</strong></td><td>7</td><td>33425</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NAND_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_AND_OR_NOR_XOR_XNOR_NOT</td><td>10</td><td>2</td><td><strong>20</strong></td><td>10</td><td>37437</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos30_K6_AND_OR_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_OR_NAND_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>1</td><td><strong>17</strong></td><td>6</td><td>26201</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos30_K6_OR_NAND_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K6_OR_NAND_NOR_XOR_XNOR_NOT</td><td>10</td><td>0</td><td><strong>16</strong></td><td>7</td><td>27069</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos30_K6_OR_NAND_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K7_AND_OR_NAND_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>3</td><td><strong>15</strong></td><td>6</td><td>22309</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos30_K7_AND_OR_NAND_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K7_AND_OR_NAND_NOR_XOR_XNOR_NOT</td><td>5</td><td>1</td><td><strong>18</strong></td><td>6</td><td>30525</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos30_K7_AND_OR_NAND_NOR_XOR_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>30</td><td>K7_AND_OR_NAND_NOR_XOR_XNOR_NOT</td><td>10</td><td>3</td><td><strong>15</strong></td><td>6</td><td>18385</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos30_K7_AND_OR_NAND_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_NOR_NOT</td><td>FULL</td><td>3</td><td><strong>22</strong></td><td>9</td><td>27953</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_NOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_NOR_XNOR</td><td>FULL</td><td>1</td><td><strong>20</strong></td><td>8</td><td>22457</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_NOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_NOR_XNOR</td><td>10</td><td>0</td><td><strong>23</strong></td><td>12</td><td>24361</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_NOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_NOR_XOR</td><td>FULL</td><td>3</td><td><strong>14</strong></td><td>7</td><td>18405</td><td>36.36%</td><td>6.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_NOR_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_NOR_XOR</td><td>5</td><td>0</td><td><strong>25</strong></td><td>13</td><td>27653</td><td>-13.64%</td><td>-66.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_NOR_XOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_NOR_XOR</td><td>10</td><td>2</td><td><strong>21</strong></td><td>9</td><td>4905</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_NOR_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_XNOR_NOT</td><td>FULL</td><td>3</td><td><strong>17</strong></td><td>9</td><td>24733</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_XNOR_NOT</td><td>10</td><td>1</td><td><strong>21</strong></td><td>10</td><td>22501</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_XOR_NOT</td><td>10</td><td>4</td><td><strong>20</strong></td><td>8</td><td>30625</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_XOR_XNOR</td><td>FULL</td><td>1</td><td><strong>23</strong></td><td>8</td><td>37665</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NAND_XOR_XNOR</td><td>10</td><td>1</td><td><strong>25</strong></td><td>10</td><td>38117</td><td>-13.64%</td><td>-66.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_NAND_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NOR_XNOR_NOT</td><td>10</td><td>4</td><td><strong>23</strong></td><td>10</td><td>33477</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_NOR_XOR_XNOR</td><td>FULL</td><td>0</td><td><strong>20</strong></td><td>8</td><td>39281</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_NOR</td><td>FULL</td><td>0</td><td><strong>17</strong></td><td>7</td><td>19081</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_NOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_NOR</td><td>10</td><td>3</td><td><strong>19</strong></td><td>8</td><td>12133</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_NOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_NOT</td><td>10</td><td>1</td><td><strong>20</strong></td><td>7</td><td>35449</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_XNOR</td><td>FULL</td><td>4</td><td><strong>15</strong></td><td>6</td><td>13293</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_XNOR</td><td>5</td><td>3</td><td><strong>19</strong></td><td>8</td><td>23093</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_XNOR</td><td>10</td><td>1</td><td><strong>17</strong></td><td>7</td><td>21621</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_XOR</td><td>FULL</td><td>0</td><td><strong>15</strong></td><td>5</td><td>7005</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_XOR</td><td>5</td><td>1</td><td><strong>19</strong></td><td>12</td><td>9289</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_XOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NAND_XOR</td><td>10</td><td>1</td><td><strong>19</strong></td><td>8</td><td>21237</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NAND_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NOR_NOT</td><td>5</td><td>2</td><td><strong>21</strong></td><td>9</td><td>29865</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NOR_XNOR</td><td>FULL</td><td>0</td><td><strong>17</strong></td><td>6</td><td>21577</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NOR_XNOR</td><td>5</td><td>2</td><td><strong>18</strong></td><td>11</td><td>29701</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NOR_XNOR</td><td>10</td><td>1</td><td><strong>20</strong></td><td>13</td><td>34561</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NOR_XOR</td><td>FULL</td><td>2</td><td><strong>21</strong></td><td>9</td><td>10465</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NOR_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_NOR_XOR</td><td>10</td><td>0</td><td><strong>18</strong></td><td>8</td><td>18125</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_NOR_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>24</strong></td><td>10</td><td>27409</td><td>-9.09%</td><td>-60.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_XOR_NOT</td><td>FULL</td><td>3</td><td><strong>20</strong></td><td>9</td><td>20321</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_XOR_NOT</td><td>10</td><td>3</td><td><strong>20</strong></td><td>7</td><td>7977</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_XOR_XNOR</td><td>5</td><td>4</td><td><strong>25</strong></td><td>15</td><td>14073</td><td>-13.64%</td><td>-66.67%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_AND_OR_XOR_XNOR</td><td>10</td><td>4</td><td><strong>21</strong></td><td>12</td><td>18969</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K4_AND_OR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_NAND_NOR_XOR_NOT</td><td>FULL</td><td>1</td><td><strong>19</strong></td><td>6</td><td>10277</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_NAND_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_NAND_NOR_XOR_NOT</td><td>10</td><td>0</td><td><strong>16</strong></td><td>8</td><td>32833</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos40_K4_NAND_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_NAND_NOR_XOR_XNOR</td><td>FULL</td><td>0</td><td><strong>20</strong></td><td>5</td><td>26361</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_NAND_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_NAND_NOR_XOR_XNOR</td><td>5</td><td>0</td><td><strong>23</strong></td><td>11</td><td>20613</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K4_NAND_NOR_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_NAND_NOR_XOR_XNOR</td><td>10</td><td>2</td><td><strong>23</strong></td><td>10</td><td>17773</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K4_NAND_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_NAND_XOR_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>22</strong></td><td>7</td><td>23681</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K4_NAND_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_NOR_NOT</td><td>5</td><td>4</td><td><strong>28</strong></td><td>17</td><td>39873</td><td>-27.27%</td><td>-86.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_NOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_NOR_XNOR</td><td>FULL</td><td>0</td><td><strong>17</strong></td><td>7</td><td>10585</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_NOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_NOR_XNOR</td><td>5</td><td>3</td><td><strong>23</strong></td><td>10</td><td>27677</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_NOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_NOR_XNOR</td><td>10</td><td>2</td><td><strong>19</strong></td><td>7</td><td>8053</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_NOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_NOR_XOR</td><td>FULL</td><td>3</td><td><strong>16</strong></td><td>6</td><td>11193</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_NOR_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_NOR_XOR</td><td>5</td><td>1</td><td><strong>16</strong></td><td>8</td><td>36061</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_NOR_XOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_NOR_XOR</td><td>10</td><td>4</td><td><strong>16</strong></td><td>6</td><td>9941</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_NOR_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_XNOR_NOT</td><td>FULL</td><td>4</td><td><strong>18</strong></td><td>7</td><td>25129</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_XNOR_NOT</td><td>5</td><td>4</td><td><strong>22</strong></td><td>13</td><td>31565</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_XOR_NOT</td><td>FULL</td><td>0</td><td><strong>19</strong></td><td>9</td><td>16465</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_XOR_XNOR</td><td>FULL</td><td>2</td><td><strong>17</strong></td><td>7</td><td>29093</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_XOR_XNOR</td><td>5</td><td>0</td><td><strong>21</strong></td><td>12</td><td>38061</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NAND_XOR_XNOR</td><td>10</td><td>4</td><td><strong>19</strong></td><td>8</td><td>7249</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NAND_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NOR_XNOR_NOT</td><td>FULL</td><td>0</td><td><strong>17</strong></td><td>5</td><td>20749</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K4_OR_NOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NOR_XNOR_NOT</td><td>10</td><td>2</td><td><strong>23</strong></td><td>9</td><td>24753</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K4_OR_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NOR_XOR_NOT</td><td>FULL</td><td>3</td><td><strong>20</strong></td><td>7</td><td>13893</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K4_OR_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NOR_XOR_NOT</td><td>5</td><td>3</td><td><strong>18</strong></td><td>10</td><td>30081</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K4_OR_NOR_XOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NOR_XOR_NOT</td><td>10</td><td>1</td><td><strong>21</strong></td><td>11</td><td>13293</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K4_OR_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NOR_XOR_XNOR</td><td>FULL</td><td>0</td><td><strong>19</strong></td><td>6</td><td>28401</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K4_OR_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NOR_XOR_XNOR</td><td>5</td><td>2</td><td><strong>21</strong></td><td>14</td><td>11277</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K4_OR_NOR_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K4_OR_NOR_XOR_XNOR</td><td>10</td><td>2</td><td><strong>23</strong></td><td>9</td><td>29793</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K4_OR_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_NAND_NOR_XNOR_NOT</td><td>FULL</td><td>0</td><td><strong>17</strong></td><td>7</td><td>16485</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K5_AND_NAND_NOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_NAND_NOR_XNOR_NOT</td><td>5</td><td>4</td><td><strong>21</strong></td><td>12</td><td>18785</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_NAND_NOR_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_NAND_NOR_XNOR_NOT</td><td>10</td><td>3</td><td><strong>23</strong></td><td>7</td><td>28585</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K5_AND_NAND_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_NAND_NOR_XOR_NOT</td><td>FULL</td><td>0</td><td><strong>15</strong></td><td>7</td><td>14973</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_NAND_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_NAND_NOR_XOR_NOT</td><td>10</td><td>3</td><td><strong>19</strong></td><td>7</td><td>16313</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_NAND_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_NAND_NOR_XOR_XNOR</td><td>FULL</td><td>3</td><td><strong>19</strong></td><td>6</td><td>36833</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_NAND_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_NAND_XOR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>27</strong></td><td>10</td><td>37045</td><td>-22.73%</td><td>-80.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_NAND_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_NOR_NOT</td><td>10</td><td>3</td><td><strong>21</strong></td><td>12</td><td>22273</td><td>4.55%</td><td>-40.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_NOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_NOR_XNOR</td><td>FULL</td><td>1</td><td><strong>16</strong></td><td>8</td><td>27645</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_NOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_NOR_XNOR</td><td>5</td><td>3</td><td><strong>20</strong></td><td>13</td><td>12881</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_NOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_NOR_XNOR</td><td>10</td><td>4</td><td><strong>19</strong></td><td>9</td><td>20921</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_NOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_NOR_XOR</td><td>FULL</td><td>2</td><td><strong>18</strong></td><td>7</td><td>17361</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_NOR_XOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_NOR_XOR</td><td>10</td><td>1</td><td><strong>33</strong></td><td>11</td><td>39997</td><td>-50.00%</td><td>-120.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_NOR_XOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_XNOR_NOT</td><td>FULL</td><td>4</td><td><strong>19</strong></td><td>6</td><td>34193</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_XNOR_NOT</td><td>10</td><td>3</td><td><strong>19</strong></td><td>7</td><td>14977</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_XOR_NOT</td><td>FULL</td><td>2</td><td><strong>18</strong></td><td>5</td><td>6341</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_XOR_NOT</td><td>5</td><td>1</td><td><strong>22</strong></td><td>11</td><td>39569</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_XOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_XOR_NOT</td><td>10</td><td>3</td><td><strong>18</strong></td><td>9</td><td>38053</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_XOR_XNOR</td><td>FULL</td><td>1</td><td><strong>18</strong></td><td>7</td><td>27637</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NAND_XOR_XNOR</td><td>5</td><td>1</td><td><strong>18</strong></td><td>10</td><td>14189</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NAND_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NOR_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>19</strong></td><td>5</td><td>37133</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NOR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>16</strong></td><td>6</td><td>15309</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NOR_XOR_NOT</td><td>FULL</td><td>3</td><td><strong>15</strong></td><td>7</td><td>37097</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NOR_XOR_NOT</td><td>5</td><td>1</td><td><strong>23</strong></td><td>13</td><td>33481</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NOR_XOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NOR_XOR_XNOR</td><td>FULL</td><td>2</td><td><strong>19</strong></td><td>7</td><td>33597</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_NOR_XOR_XNOR</td><td>10</td><td>2</td><td><strong>23</strong></td><td>9</td><td>23001</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_XOR_XNOR_NOT</td><td>FULL</td><td>3</td><td><strong>19</strong></td><td>6</td><td>14245</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_AND_OR_XOR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>19</strong></td><td>6</td><td>32385</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_AND_OR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_NAND_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>1</td><td><strong>17</strong></td><td>9</td><td>16009</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K5_NAND_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_NAND_NOR_XOR_XNOR_NOT</td><td>10</td><td>3</td><td><strong>19</strong></td><td>8</td><td>32353</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_NAND_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_NOR_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>17</strong></td><td>6</td><td>19505</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_NOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_NOR_XNOR_NOT</td><td>5</td><td>0</td><td><strong>19</strong></td><td>12</td><td>36413</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_NOR_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_NOR_XNOR_NOT</td><td>10</td><td>3</td><td><strong>18</strong></td><td>9</td><td>12233</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_NOR_XOR_NOT</td><td>FULL</td><td>1</td><td><strong>15</strong></td><td>7</td><td>19253</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_NOR_XOR_NOT</td><td>5</td><td>3</td><td><strong>25</strong></td><td>16</td><td>29189</td><td>-13.64%</td><td>-66.67%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_NOR_XOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_NOR_XOR_NOT</td><td>10</td><td>2</td><td><strong>22</strong></td><td>10</td><td>7633</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_NOR_XOR_XNOR</td><td>FULL</td><td>4</td><td><strong>16</strong></td><td>8</td><td>7925</td><td>27.27%</td><td>-6.67%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_NOR_XOR_XNOR</td><td>10</td><td>3</td><td><strong>26</strong></td><td>13</td><td>39177</td><td>-18.18%</td><td>-73.33%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_XOR_XNOR_NOT</td><td>FULL</td><td>4</td><td><strong>20</strong></td><td>7</td><td>30317</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NAND_XOR_XNOR_NOT</td><td>10</td><td>3</td><td><strong>19</strong></td><td>7</td><td>33249</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K5_OR_NAND_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>4</td><td><strong>22</strong></td><td>6</td><td>31741</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K5_OR_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NOR_XOR_XNOR_NOT</td><td>5</td><td>2</td><td><strong>24</strong></td><td>10</td><td>23385</td><td>-9.09%</td><td>-60.00%</td><td><a href="melhores_circuitos/nos40_K5_OR_NOR_XOR_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K5_OR_NOR_XOR_XNOR_NOT</td><td>10</td><td>0</td><td><strong>22</strong></td><td>9</td><td>37681</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K5_OR_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_NAND_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>15</strong></td><td>7</td><td>19001</td><td>31.82%</td><td>0.00%</td><td><a href="melhores_circuitos/nos40_K6_AND_NAND_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_NAND_NOR_XOR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>27</strong></td><td>9</td><td>35329</td><td>-22.73%</td><td>-80.00%</td><td><a href="melhores_circuitos/nos40_K6_AND_NAND_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_NOR_XNOR_NOT</td><td>FULL</td><td>0</td><td><strong>19</strong></td><td>7</td><td>12857</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_NOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_NOR_XNOR_NOT</td><td>5</td><td>3</td><td><strong>24</strong></td><td>10</td><td>12097</td><td>-9.09%</td><td>-60.00%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_NOR_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_NOR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>19</strong></td><td>7</td><td>21553</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_NOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_NOR_XOR_NOT</td><td>FULL</td><td>4</td><td><strong>19</strong></td><td>7</td><td>35065</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_NOR_XOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_NOR_XOR_NOT</td><td>10</td><td>1</td><td><strong>18</strong></td><td>10</td><td>22329</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_NOR_XOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_NOR_XOR_XNOR</td><td>FULL</td><td>3</td><td><strong>17</strong></td><td>7</td><td>24153</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_NOR_XOR_XNOR_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_NOR_XOR_XNOR</td><td>5</td><td>3</td><td><strong>19</strong></td><td>13</td><td>17393</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_NOR_XOR_XNOR_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_NOR_XOR_XNOR</td><td>10</td><td>3</td><td><strong>19</strong></td><td>7</td><td>37813</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_NOR_XOR_XNOR_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_XOR_XNOR_NOT</td><td>FULL</td><td>1</td><td><strong>17</strong></td><td>6</td><td>6085</td><td>22.73%</td><td>-13.33%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_XOR_XNOR_NOT</td><td>5</td><td>3</td><td><strong>23</strong></td><td>8</td><td>34057</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_XOR_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NAND_XOR_XNOR_NOT</td><td>10</td><td>2</td><td><strong>23</strong></td><td>10</td><td>27605</td><td>-4.55%</td><td>-53.33%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NAND_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>3</td><td><strong>19</strong></td><td>7</td><td>18181</td><td>13.64%</td><td>-26.67%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_AND_OR_NOR_XOR_XNOR_NOT</td><td>10</td><td>2</td><td><strong>22</strong></td><td>10</td><td>21861</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K6_AND_OR_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_OR_NAND_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>20</strong></td><td>7</td><td>15797</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K6_OR_NAND_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K6_OR_NAND_NOR_XOR_XNOR_NOT</td><td>10</td><td>2</td><td><strong>20</strong></td><td>9</td><td>35217</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K6_OR_NAND_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K7_AND_OR_NAND_NOR_XOR_XNOR_NOT</td><td>FULL</td><td>2</td><td><strong>18</strong></td><td>7</td><td>12765</td><td>18.18%</td><td>-20.00%</td><td><a href="melhores_circuitos/nos40_K7_AND_OR_NAND_NOR_XOR_XNOR_NOT_lbFULL/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K7_AND_OR_NAND_NOR_XOR_XNOR_NOT</td><td>5</td><td>1</td><td><strong>22</strong></td><td>11</td><td>32321</td><td>0.00%</td><td>-46.67%</td><td><a href="melhores_circuitos/nos40_K7_AND_OR_NAND_NOR_XOR_XNOR_NOT_lb5/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr><tr><td>40</td><td>K7_AND_OR_NAND_NOR_XOR_XNOR_NOT</td><td>10</td><td>1</td><td><strong>20</strong></td><td>9</td><td>29809</td><td>9.09%</td><td>-33.33%</td><td><a href="melhores_circuitos/nos40_K7_AND_OR_NAND_NOR_XOR_XNOR_NOT_lb10/melhor_circuito.png" target="_blank">Abrir PNG</a></td></tr>
+    </table>
+    <div class="note">
+        O diretorio <code>melhores_circuitos/</code> preserva o circuito e o genotipo
+        selecionado de cada configuracao. A rodada tambem tenta gerar
+        <code>melhor_circuito_da_rodada.png</code>.
+    </div>
+</section>
+
+
+<section id="memorial-validacao-v4" class="card">
+
+    <h2>
+        Licoes da validacao da infraestrutura experimental
+    </h2>
+
+    <p>
+        Uma rodada exploratoria com
+        <code>nmax = 5000</code> foi planejada para
+        2540 execucoes.
+    </p>
+
+    <p>
+        A auditoria mostrou que 1279 tentativas haviam
+        terminado com o erro
+        <code>Porta desconhecida: or</code>.
+    </p>
+
+    <p>
+        A causa foi identificada no simulador:
+        havia um espaco acidental em
+        <code>if p == ' or'</code>,
+        enquanto os cromossomos armazenavam corretamente
+        a primitiva como <code>'or'</code>.
+    </p>
+
+    <p>
+        Portanto, aquela rodada nao permite concluir que
+        configuracoes contendo OR apresentam desempenho
+        inferior. Tratou-se de um erro de implementacao,
+        e nao de uma falha evolutiva.
+    </p>
+
+    <p>
+        A V4 incorpora essa experiencia ao protocolo
+        experimental por meio de:
+    </p>
+
+    <ul>
+        <li>autoteste das sete primitivas;</li>
+        <li>normalizacao dos nomes das portas;</li>
+        <li>registro de erros tecnicos;</li>
+        <li>verificacao da cobertura tecnica;</li>
+        <li>separacao entre erro tecnico e falha evolutiva;</li>
+        <li>armazenamento compacto da evolucao.</li>
+    </ul>
+
+    <div class="note">
+        Esse episodio permanece registrado no memorial
+        metodologico do TCC2. Ele explica a origem dos
+        mecanismos adicionais de auditoria da V4.
+    </div>
+
+</section>
+
+
+<section id="conjecturas-v4" class="card">
+
+    <h2>
+        Conjecturas e hipoteses experimentais
+    </h2>
+
+    <p>
+        Os pontos abaixo sao hipoteses de investigacao,
+        e nao conclusoes definitivas.
+    </p>
+
+    <ul>
+
+        <li>
+            aumentar a quantidade de tipos de portas pode
+            aumentar a expressividade e, simultaneamente,
+            aumentar o espaco de busca;
+        </li>
+
+        <li>
+            um espaco genotipico maior nao implica
+            necessariamente maior probabilidade de sucesso
+            dentro de um orcamento fixo;
+        </li>
+
+        <li>
+            NAND e NOR isoladamente sao casos de interesse
+            por serem funcionalmente completos;
+        </li>
+
+        <li>
+            XOR e XNOR podem alterar a compactacao
+            estrutural das solucoes;
+        </li>
+
+        <li>
+            levels-back reduz o espaco genotipico, mas uma
+            restricao excessiva pode eliminar estruturas uteis;
+        </li>
+
+        <li>
+            mais nos disponiveis nao significam
+            necessariamente mais nos ativos;
+        </li>
+
+        <li>
+            numero de nos, conjunto de portas e levels-back
+            podem interagir entre si;
+        </li>
+
+        <li>
+            seeds sao repeticoes estocasticas, e nao uma
+            dimensao estrutural do espaco de busca;
+        </li>
+
+        <li>
+            a topologia n_r x n_c permanece como uma possivel
+            extensao futura e nao como dimensao principal
+            do protocolo atual.
+        </li>
+
+    </ul>
+
+</section>
+
+<section id="hipoteses" class="card">
+    <h2>14. Hipoteses e conjecturas registradas antes da analise final</h2>
+    <div class="note">
+        <strong>H1 · Repertorio de portas:</strong> mais tipos podem aumentar a
+        expressividade, mas tambem ampliam o espaco genotipico; o efeito liquido sobre
+        Hits, MES e complexidade precisa ser medido.
+    </div>
+    <div class="note">
+        <strong>H2 · Conjuntos unitarios:</strong> conjuntos com uma unica primitiva
+        podem revelar incapacidade pratica dentro do orcamento ou, em alguns casos,
+        busca eficiente. NAND e NOR sao casos especialmente interessantes, mas seu
+        desempenho nao e presumido.
+    </div>
+    <div class="note">
+        <strong>H3 · Levels-back:</strong> restringir conectividade reduz o espaco
+        genotipico, mas pode orientar a busca ou excluir caminhos uteis; nao se assume
+        relacao monotona entre LB e desempenho.
+    </div>
+    <div class="note">
+        <strong>H4 · Numero de nos:</strong> disponibilizar mais nos aumenta a
+        capacidade representacional, mas nao implica automaticamente mais nos ativos
+        nem menor esforco para encontrar equivalencia.
+    </div>
+    <div class="note">
+        <strong>H5 · Interacoes:</strong> o efeito de uma dimensao pode depender das
+        outras. Um conjunto de portas pode ter comportamento diferente conforme nos e LB.
+    </div>
+    <div class="note warning">
+        Estas frases sao <strong>hipoteses/conjecturas</strong>, nao resultados.
+        A Wiki as preserva justamente para separar expectativas anteriores da evidencia
+        produzida pelos experimentos.
+    </div>
+</section>
+
+<section id="futuro" class="card">
+    <h2>15. Dimensoes adicionais consideradas, mas nao adotadas no nucleo</h2>
+    <table>
+        <tr><th>Candidata</th><th>Por que e interessante</th><th>Decisao atual</th></tr>
+        <tr><td>Topologia <code>n_r × n_c</code></td><td>Manfrini compara formatos como 1×N, 2×N/2 e 5×N/5, mantendo aproximadamente o mesmo total de nos.</td><td>Primeira candidata a extensao futura; exige generalizar levels-back por colunas.</td></tr>
+        <tr><td>Semeadura da populacao</td><td>Permite diferenciar as portas usadas na inicializacao das portas permitidas durante a evolucao.</td><td>Experimento complementar; nao cruzar agora com todas as 127 combinacoes.</td></tr>
+        <tr><td>SAM vs Biased-SAM</td><td>Investiga o operador de busca, nao apenas o espaco.</td><td>Manter fora do nucleo para isolar as tres dimensoes principais.</td></tr>
+        <tr><td>Neutralidade ON/OFF</td><td>Afeta a dinamica evolutiva.</td><td>Nao variar no experimento principal.</td></tr>
+        <tr><td>Orcamento de geracoes</td><td>Pode estudar convergencia e saturacao.</td><td>Tratar inicialmente como controle; comparar orcamentos em estudo complementar se necessario.</td></tr>
+    </table>
+</section>
+
+<section id="nao-inferir" class="card">
+    <h2>16. O que nao deve ser inferido automaticamente</h2>
+    <ul>
+        <li>Espaco de busca maior nao significa desempenho melhor.</li>
+        <li>Espaco menor nao significa necessariamente busca mais facil.</li>
+        <li>Uma unica seed sem sucesso nao prova impossibilidade funcional.</li>
+        <li>Zero Hits em poucas repeticoes nao prova matematicamente que o conjunto de portas e incapaz.</li>
+        <li>Menos nos ativos nao garante automaticamente menor uso fisico de FPGA.</li>
+        <li>Tempo de execucao nao e comparavel entre maquinas sem controle do ambiente.</li>
+        <li>Espaco genotipico nao e quantidade de fenotipos nem de funcoes booleanas distintas.</li>
+        <li>Resultados com BCD 10–15 forçados a zero nao sao diretamente comparaveis aos resultados don't care.</li>
+        <li>Uma rodada curta de validacao da infraestrutura nao deve sustentar conclusoes finais de desempenho.</li>
+    </ul>
+</section>
+
+<section id="variaveis" class="card">
+    <h2>17. Variaveis principais do codigo</h2>
+    <p>Passe o cursor ou focalize os nomes para consultar a explicacao curta.</p>
+    <table><tr><th>Variavel</th><th>Valor</th><th>Papel</th></tr><tr><td><span class="tooltip" tabindex="0">VERSAO_EXPERIMENTO<span class="tooltip-text">Identificador metodologico gravado nos CSVs para rastrear a versao do protocolo.</span></span></td><td><code>TCC2-ESPACO-BUSCA-v4-AUDIT-COMPACT</code></td><td>Identificador metodologico gravado nos CSVs para rastrear a versao do protocolo.</td></tr><tr><td><span class="tooltip" tabindex="0">n_var<span class="tooltip-text">Quantidade de entradas do problema. Para BCD sao quatro bits.</span></span></td><td><code>4</code></td><td>Quantidade de entradas do problema. Para BCD sao quatro bits.</td></tr><tr><td><span class="tooltip" tabindex="0">n_saidas<span class="tooltip-text">Quantidade de saidas do decodificador de sete segmentos.</span></span></td><td><code>7</code></td><td>Quantidade de saidas do decodificador de sete segmentos.</td></tr><tr><td><span class="tooltip" tabindex="0">nos<span class="tooltip-text">Quantidade de nos logicos disponiveis no cromossomo de uma execucao individual.</span></span></td><td><code>40</code></td><td>Quantidade de nos logicos disponiveis no cromossomo de uma execucao individual.</td></tr><tr><td><span class="tooltip" tabindex="0">PORTAS_DISPONIVEIS<span class="tooltip-text">Universo de primitivas a partir do qual os conjuntos de portas sao combinados automaticamente.</span></span></td><td><code>AND, OR, NAND, NOR, XOR, XNOR, NOT</code></td><td>Universo de primitivas a partir do qual os conjuntos de portas sao combinados automaticamente.</td></tr><tr><td><span class="tooltip" tabindex="0">TAMANHOS_CONJUNTOS_PORTAS<span class="tooltip-text">Tamanhos dos subconjuntos incluidos. De 1 a 7 produz as 127 combinacoes nao vazias.</span></span></td><td><code>[4, 5, 6, 7]</code></td><td>Tamanhos dos subconjuntos incluidos. De 1 a 7 produz as 127 combinacoes nao vazias.</td></tr><tr><td><span class="tooltip" tabindex="0">CONJUNTOS_PORTAS<span class="tooltip-text">Conjuntos realmente configurados para o lote atual.</span></span></td><td><code>64 conjuntos</code></td><td>Conjuntos realmente configurados para o lote atual.</td></tr><tr><td><span class="tooltip" tabindex="0">nmax<span class="tooltip-text">Orcamento maximo de geracoes por execucao. E controle/orcamento, nao dimensao principal.</span></span></td><td><code>10000</code></td><td>Orcamento maximo de geracoes por execucao. E controle/orcamento, nao dimensao principal.</td></tr><tr><td><span class="tooltip" tabindex="0">n_filhos<span class="tooltip-text">Numero de descendentes da estrategia evolutiva (1 + lambda).</span></span></td><td><code>4</code></td><td>Numero de descendentes da estrategia evolutiva (1 + lambda).</td></tr><tr><td><span class="tooltip" tabindex="0">MODO_MUTACAO<span class="tooltip-text">Implementacao atual: selecao direta de um gene ativo mutavel.</span></span></td><td><code>SINGLE_ATIVO_DIRETO</code></td><td>Implementacao atual: selecao direta de um gene ativo mutavel.</td></tr><tr><td><span class="tooltip" tabindex="0">saida_pode_ser_entrada<span class="tooltip-text">Permite que uma saida aponte diretamente para uma entrada primaria.</span></span></td><td><code>True</code></td><td>Permite que uma saida aponte diretamente para uma entrada primaria.</td></tr><tr><td><span class="tooltip" tabindex="0">avaliar_invalidos<span class="tooltip-text">No protocolo principal permanece False para que BCD 10 a 15 sejam don&#x27;t care.</span></span></td><td><code>False</code></td><td>No protocolo principal permanece False para que BCD 10 a 15 sejam don&#x27;t care.</td></tr><tr><td><span class="tooltip" tabindex="0">TRATAMENTO_BCD_INVALIDO<span class="tooltip-text">Decisao metodologica oficial para as combinacoes BCD 10 a 15.</span></span></td><td><code>DONT_CARE</code></td><td>Decisao metodologica oficial para as combinacoes BCD 10 a 15.</td></tr><tr><td><span class="tooltip" tabindex="0">LEVELS_BACK<span class="tooltip-text">Janela de conectividade usada em uma execucao individual.</span></span></td><td><code>10</code></td><td>Janela de conectividade usada em uma execucao individual.</td></tr><tr><td><span class="tooltip" tabindex="0">LEVELS_BACK_RESTRINGE_SAIDAS<span class="tooltip-text">Indica se a mesma restricao de conectividade tambem limita os genes de saida.</span></span></td><td><code>False</code></td><td>Indica se a mesma restricao de conectividade tambem limita os genes de saida.</td></tr><tr><td><span class="tooltip" tabindex="0">LISTA_NOS<span class="tooltip-text">Valores de quantidade de nos testados no modo lote.</span></span></td><td><code>[30, 40]</code></td><td>Valores de quantidade de nos testados no modo lote.</td></tr><tr><td><span class="tooltip" tabindex="0">LISTA_LEVELS_BACK<span class="tooltip-text">Valores de levels-back testados. None representa FULL.</span></span></td><td><code>[None, 5, 10]</code></td><td>Valores de levels-back testados. None representa FULL.</td></tr><tr><td><span class="tooltip" tabindex="0">LISTA_SEEDS<span class="tooltip-text">Repeticoes pseudoaleatorias independentes de cada configuracao.</span></span></td><td><code>[0, 1, 2, 3, 4]</code></td><td>Repeticoes pseudoaleatorias independentes de cada configuracao.</td></tr><tr><td><span class="tooltip" tabindex="0">BENCHMARK_EXTERNO_PORTAS<span class="tooltip-text">Referencia externa de 22 portas adotada no projeto.</span></span></td><td><code>22</code></td><td>Referencia externa de 22 portas adotada no projeto.</td></tr><tr><td><span class="tooltip" tabindex="0">BENCHMARK_INTERNO_PORTAS<span class="tooltip-text">Melhor resultado anterior do projeto: 15 nos ativos/portas.</span></span></td><td><code>15</code></td><td>Melhor resultado anterior do projeto: 15 nos ativos/portas.</td></tr></table>
+</section>
+
+<section id="funcoes" class="card">
+    <h2>18. Funcoes diretamente ligadas a metodologia</h2>
+    <table><tr><th>Funcao</th><th>Finalidade</th></tr><tr><td><span class="tooltip" tabindex="0">gera_conjuntos_portas()<span class="tooltip-text">Gera automaticamente os subconjuntos de primitivas logicas.</span></span></td><td>Gera automaticamente os subconjuntos de primitivas logicas.</td></tr><tr><td><span class="tooltip" tabindex="0">fontes_permitidas_no()<span class="tooltip-text">Aplica levels-back aos nos internos durante inicializacao e mutacao.</span></span></td><td>Aplica levels-back aos nos internos durante inicializacao e mutacao.</td></tr><tr><td><span class="tooltip" tabindex="0">fontes_permitidas_saida()<span class="tooltip-text">Aplica a politica definida de conectividade aos genes de saida.</span></span></td><td>Aplica a politica definida de conectividade aos genes de saida.</td></tr><tr><td><span class="tooltip" tabindex="0">calcula_espaco_busca()<span class="tooltip-text">Calcula o numero de genotipos permitido pela representacao da configuracao.</span></span></td><td>Calcula o numero de genotipos permitido pela representacao da configuracao.</td></tr><tr><td><span class="tooltip" tabindex="0">ligantes()<span class="tooltip-text">Identifica os nos ativos que participam do fenotipo.</span></span></td><td>Identifica os nos ativos que participam do fenotipo.</td></tr><tr><td><span class="tooltip" tabindex="0">lista_genes_ativos()<span class="tooltip-text">Lista apenas genes ativos que possuem pelo menos uma alternativa valida de mutacao.</span></span></td><td>Lista apenas genes ativos que possuem pelo menos uma alternativa valida de mutacao.</td></tr><tr><td><span class="tooltip" tabindex="0">mutacao()<span class="tooltip-text">Gera um descendente alterando diretamente um gene ativo mutavel.</span></span></td><td>Gera um descendente alterando diretamente um gene ativo mutavel.</td></tr><tr><td><span class="tooltip" tabindex="0">chave_melhor_solucao_funcional()<span class="tooltip-text">Ordena solucoes equivalentes por portas, profundidade, avaliacoes e geracao.</span></span></td><td>Ordena solucoes equivalentes por portas, profundidade, avaliacoes e geracao.</td></tr><tr><td><span class="tooltip" tabindex="0">prepara_execucao()<span class="tooltip-text">Recria individuo, tabela e indices para uma configuracao.</span></span></td><td>Recria individuo, tabela e indices para uma configuracao.</td></tr><tr><td><span class="tooltip" tabindex="0">salva_metricas_lote()<span class="tooltip-text">Consolida Hits, MES e demais estatisticas por configuracao.</span></span></td><td>Consolida Hits, MES e demais estatisticas por configuracao.</td></tr><tr><td><span class="tooltip" tabindex="0">gera_grafos_melhores_configuracoes()<span class="tooltip-text">Gera o circuito da melhor solucao equivalente de cada configuracao e o melhor global.</span></span></td><td>Gera o circuito da melhor solucao equivalente de cada configuracao e o melhor global.</td></tr><tr><td><span class="tooltip" tabindex="0">gera_wiki_html()<span class="tooltip-text">Gera automaticamente esta Wiki metodologica e experimental.</span></span></td><td>Gera automaticamente esta Wiki metodologica e experimental.</td></tr></table>
+</section>
+
+<section id="arquivos" class="card">
+    <h2>19. Arquivos e rastreabilidade</h2>
+    <div class="flow">
+        <div class="box">Variavel</div><div class="arrow">→</div>
+        <div class="box">Configuracao</div><div class="arrow">→</div>
+        <div class="box">Execucao</div><div class="arrow">→</div>
+        <div class="box">Metrica</div><div class="arrow">→</div>
+        <div class="box">CSV</div><div class="arrow">→</div>
+        <div class="box">Analise</div><div class="arrow">→</div>
+        <div class="box">Grafico/Circuito</div><div class="arrow">→</div>
+        <div class="box">Conclusao</div>
+    </div>
+    <table>
+        <tr><th>Arquivo</th><th>Finalidade</th></tr>
+        <tr><td><code>resumo_geral.csv</code></td><td>Uma linha por execucao com parametros, genotipo e metricas detalhadas.</td></tr>
+        <tr><td><code>metricas_por_configuracao.csv</code></td><td>Agrega nos + conjunto de portas + levels-back, com Hits e MES.</td></tr>
+        <tr><td><code>evolucao.csv</code></td><td>Serie de fitness e nos ativos ao longo das geracoes.</td></tr>
+        <tr><td><code>resultado_execucao.csv</code></td><td>Registro completo de uma execucao individual.</td></tr>
+        <tr><td><code>individuo_final.txt</code></td><td>Configuracao e genotipo final para auditoria.</td></tr>
+        <tr><td><code>melhores_circuitos/</code></td><td>Melhor circuito funcional de cada configuracao.</td></tr>
+        <tr><td><code>melhor_circuito_da_rodada.*</code></td><td>Melhor fenotipo funcional segundo os criterios oficiais.</td></tr>
+        <tr><td><code>wiki.html</code></td><td>Memorial metodologico e relatorio automatico.</td></tr>
+    </table>
+</section>
+
+<section id="quartus" class="card">
+    <h2>20. Validacao posterior no Quartus/FPGA</h2>
+    <p>
+        A sintese em FPGA permanece como uma camada posterior de validacao, alinhada
+        ao TCC1. Ela nao e uma dimensao do espaco de busca da CGP. O objetivo e
+        verificar se a reducao estrutural observada em nos ativos se traduz em
+        comportamento favoravel nos recursos de hardware apos sintese.
+    </p>
+    <div class="note">
+        Para evitar custo excessivo, a recomendacao metodologica e sintetizar no
+        Quartus os <strong>melhores circuitos selecionados</strong>, e nao todas as
+        milhares de execucoes.
+    </div>
+</section>
+
+<section id="reprodutibilidade" class="card">
+    <h2>21. Reprodutibilidade e volume experimental</h2>
+    <div class="grid">
+        <div class="metric"><div class="value">[30, 40]</div><div class="label">nos observados nesta rodada</div></div>
+        <div class="metric"><div class="value">64</div><div class="label">conjuntos observados</div></div>
+        <div class="metric"><div class="value">[&#x27;FULL&#x27;, 5, 10]</div><div class="label">levels-back observados</div></div>
+        <div class="metric"><div class="value">[0, 1, 2, 3, 4]</div><div class="label">seeds observadas</div></div>
+    </div>
+    <p>
+        Uma configuracao experimental e identificada por
+        <strong>nos + conjunto de portas + levels-back</strong>. As seeds sao repeticoes
+        independentes dessa configuracao.
+    </p>
+    <div class="note warning">
+        Com as listas atuais, o lote completo contem
+        <strong>1920</strong> execucoes. A automatizacao permite
+        exploracao ampla, mas a interpretacao final deve considerar numero suficiente
+        de repeticoes por configuracao. Uma estrategia pratica e usar lotes curtos para
+        validar infraestrutura e depois aumentar seeds/orcamento nas rodadas cientificas.
+    </div>
+</section>
+
+<section id="execucoes" class="card">
+    <h2>22. Execucoes desta rodada</h2>
+    <table>
+        <tr>
+            <th>Exec.</th><th>Nos</th><th># tipos</th><th>Conjunto</th>
+            <th>LB</th><th>Seed</th><th>Fitness</th><th>Portas ativas</th><th>Equiv.?</th>
+        </tr>
+        <tr><td>1</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>FULL</td><td>0</td><td>66</td><td>18</td><td>False</td></tr><tr><td>2</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>FULL</td><td>1</td><td>70</td><td>19</td><td>True</td></tr><tr><td>3</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>FULL</td><td>2</td><td>68</td><td>24</td><td>False</td></tr><tr><td>4</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>FULL</td><td>3</td><td>69</td><td>19</td><td>False</td></tr><tr><td>5</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>FULL</td><td>4</td><td>68</td><td>17</td><td>False</td></tr><tr><td>6</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>5</td><td>0</td><td>66</td><td>17</td><td>False</td></tr><tr><td>7</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>5</td><td>1</td><td>68</td><td>20</td><td>False</td></tr><tr><td>8</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>5</td><td>2</td><td>66</td><td>23</td><td>False</td></tr><tr><td>9</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>5</td><td>3</td><td>66</td><td>22</td><td>False</td></tr><tr><td>10</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>5</td><td>4</td><td>66</td><td>20</td><td>False</td></tr><tr><td>11</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>10</td><td>0</td><td>68</td><td>21</td><td>False</td></tr><tr><td>12</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>10</td><td>1</td><td>68</td><td>26</td><td>False</td></tr><tr><td>13</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>10</td><td>2</td><td>69</td><td>23</td><td>False</td></tr><tr><td>14</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>10</td><td>3</td><td>69</td><td>24</td><td>False</td></tr><tr><td>15</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_NOR</td><td>10</td><td>4</td><td>69</td><td>21</td><td>False</td></tr><tr><td>16</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>FULL</td><td>0</td><td>69</td><td>22</td><td>False</td></tr><tr><td>17</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>FULL</td><td>1</td><td>69</td><td>18</td><td>False</td></tr><tr><td>18</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>FULL</td><td>2</td><td>68</td><td>18</td><td>False</td></tr><tr><td>19</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>FULL</td><td>3</td><td>70</td><td>17</td><td>True</td></tr><tr><td>20</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>FULL</td><td>4</td><td>69</td><td>18</td><td>False</td></tr><tr><td>21</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>5</td><td>0</td><td>68</td><td>22</td><td>False</td></tr><tr><td>22</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>5</td><td>1</td><td>67</td><td>18</td><td>False</td></tr><tr><td>23</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>5</td><td>2</td><td>69</td><td>21</td><td>False</td></tr><tr><td>24</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>5</td><td>3</td><td>68</td><td>18</td><td>False</td></tr><tr><td>25</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>5</td><td>4</td><td>69</td><td>23</td><td>False</td></tr><tr><td>26</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>10</td><td>0</td><td>70</td><td>17</td><td>True</td></tr><tr><td>27</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>10</td><td>1</td><td>68</td><td>18</td><td>False</td></tr><tr><td>28</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>10</td><td>2</td><td>70</td><td>19</td><td>True</td></tr><tr><td>29</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>10</td><td>3</td><td>70</td><td>16</td><td>True</td></tr><tr><td>30</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XOR</td><td>10</td><td>4</td><td>68</td><td>24</td><td>False</td></tr><tr><td>31</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>FULL</td><td>0</td><td>69</td><td>20</td><td>False</td></tr><tr><td>32</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>FULL</td><td>1</td><td>70</td><td>21</td><td>True</td></tr><tr><td>33</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>FULL</td><td>2</td><td>69</td><td>18</td><td>False</td></tr><tr><td>34</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>FULL</td><td>3</td><td>70</td><td>17</td><td>True</td></tr><tr><td>35</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>FULL</td><td>4</td><td>69</td><td>21</td><td>False</td></tr><tr><td>36</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>5</td><td>0</td><td>68</td><td>20</td><td>False</td></tr><tr><td>37</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>5</td><td>1</td><td>70</td><td>21</td><td>True</td></tr><tr><td>38</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>5</td><td>2</td><td>66</td><td>24</td><td>False</td></tr><tr><td>39</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>5</td><td>3</td><td>67</td><td>21</td><td>False</td></tr><tr><td>40</td><td>30</td><td>4</td><td>K4_AND_OR_NAND_XNOR</td><td>5</td><td>4</td><td>67</td><td>20</td><td>False</td></tr><tr><td colspan="9" class="muted">Exibidas as primeiras 40 execucoes de 1920. Os CSVs preservam todos os dados.</td></tr>
+    </table>
+</section>
+
+<footer class="card muted small">
+    Wiki gerada automaticamente pelo programa de experimentacao CGP.
+    Os CSVs permanecem como fonte primaria dos dados; a Wiki organiza contexto,
+    hipoteses, decisoes metodologicas e leitura descritiva.
+</footer>
+
+</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,12 @@
+Nos disponiveis: 30
+Conjunto: K5_OR_NAND_NOR_XOR_XNOR
+Portas: or | nand | nor | xor | xnor
+Levels-back: FULL
+Seed: 4
+Portas ativas: 14
+Profundidade maxima: 7
+Fitness: 70 / 70
+Geracao de equivalencia: 4566
+Avaliacoes ate equivalencia: 18265
+Reducao vs benchmark externo: 36.363636%
+Reducao vs benchmark interno: 6.666667%

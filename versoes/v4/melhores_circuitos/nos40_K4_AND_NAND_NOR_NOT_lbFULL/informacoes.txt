@@ -1,0 +1,12 @@
+Nos disponiveis: 40
+Conjunto: K4_AND_NAND_NOR_NOT
+Portas: and | nand | nor | not
+Levels-back: FULL
+Seed: 3
+Portas ativas: 22
+Profundidade maxima: 9
+Fitness: 70 / 70
+Geracao de equivalencia: 6988
+Avaliacoes ate equivalencia: 27953
+Reducao vs benchmark externo: 0.0%
+Reducao vs benchmark interno: -46.666667%

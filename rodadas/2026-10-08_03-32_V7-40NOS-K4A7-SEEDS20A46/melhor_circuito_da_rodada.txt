@@ -1,0 +1,13 @@
+[2, 1, 'xor', 0, 2, 'not', 3, 4, 'nor', 0, 6, 'and', 6, 6, 'and', 6, 0, 'xor', 1, 6, 'nor', 6, 5, 'nor', 7, 2, 'nand', 1, 6, 'nor', 13, 4, 'and', 14, 7, 'xor', 14, 0, 'nor', 5, 9, 'xor', 9, 16, 'or', 15, 11, 'not', 1, 18, 'or', 12, 4, 'xor', 9, 4, 'xor', 6, 9, 'nor', 2, 18, 'nand', 22, 16, 'and', 16, 1, 'and', 12, 8, 'not', 6, 18, 'and', 28, 13, 'or', 5, 4, 'nor', 28, 24, 'xor', 24, 14, 'xor', 2, 6, 'nand', 5, 2, 'not', 4, 16, 'nand', 19, 9, 'and', 6, 21, 'nand', 5, 11, 'not', 37, 7, 'nor', 11, 8, 'or', 24, 6, 'nand', 23, 15, 'nand', 5, 24, 'not', 20, 24, 35, 18, 16, 29, 41, 70]
+
+nos: 40
+conjunto: K6_AND_OR_NAND_NOR_XOR_NOT
+portas: and | or | nand | nor | xor | not
+levels_back: FULL
+seed: 43
+portas_ativas: 13
+profundidade_maxima: 8
+geracao_equivalencia: 18229
+avaliacoes_ate_equivalencia: 72917
+reducao_vs_benchmark_externo_percentual: 40.909091
+reducao_vs_benchmark_interno_percentual: 13.333333

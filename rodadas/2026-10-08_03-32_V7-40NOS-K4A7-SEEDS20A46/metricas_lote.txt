@@ -1,0 +1,59 @@
+METRICAS DO LOTE
+==============================
+Rodada: V7-40NOS-K4A7-SEEDS20A46
+Pasta: E:\estudo\tcc2\TCC2_CGP_V7\resultados\2026-10-08_03-32_V7-40NOS-K4A7-SEEDS20A46
+Total de execucoes: 1728
+Execucoes funcionais: 1102
+Taxa de sucesso (Hits): 63.77%
+Benchmark externo: 22 portas
+Benchmark interno: 15 portas
+Tratamento BCD 10-15: DONT_CARE
+Tempo total do lote: 46061.2527 s
+Tempo medio por execucao: 25.457 s
+Tempo mediano por execucao: 25.3623 s
+Desvio-padrao do tempo: 2.2722 s
+Media de avaliacoes por segundo: 3165.9342
+
+MELHOR SOLUCAO FUNCIONAL
+==============================
+Portas ativas: 13
+Nos: 40
+Conjunto: K6_AND_OR_NAND_NOR_XOR_NOT
+Seed: 43
+Geracao da equivalencia: 18229
+Tempo de execucao: 23.1582 s
+Reducao vs benchmark externo: 40.909091%
+Reducao vs benchmark interno: 13.333333%
+
+ESTATISTICAS DAS SOLUCOES FUNCIONAIS
+==============================
+Melhor numero de nos ativos: 13
+Mediana de nos ativos: 18.0
+Media de nos ativos: 18.7359
+Desvio-padrao de nos ativos: 2.2734
+Mediana da profundidade maxima: 7.0
+Media da profundidade maxima: 6.9837
+Desvio-padrao da profundidade maxima: 1.3294
+Mediana da geracao de equivalencia: 9267.0
+Media da geracao de equivalencia: 9893.6887
+Desvio-padrao da geracao de equivalencia: 4906.3564
+Mediana do tempo ate equivalencia: 12.3787 s
+Media do tempo ate equivalencia: 13.0388 s
+Desvio-padrao do tempo ate equivalencia: 6.5887 s
+
+
+INTEGRIDADE TECNICA V4
+============================================
+Execucoes planejadas: 1728
+Tentativas registradas: 1728
+Execucoes tecnicamente concluidas: 1728
+Erros tecnicos: 0
+Execucoes equivalentes: 1102
+Cobertura tecnica: 100.0%
+Hits entre execucoes concluidas: 63.7731%
+Rodada tecnicamente completa: True
+
+REGRA METODOLOGICA
+============================================
+ERRO TECNICO != FALHA EVOLUTIVA.
+Execucoes interrompidas por erro de software nao devem ser contabilizadas como insucesso do algoritmo CGP.

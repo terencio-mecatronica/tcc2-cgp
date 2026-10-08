@@ -1,0 +1,5 @@
+﻿fonte_id,execucao,seed,conjunto,nos,levels_back,motivo,orcamento_geracoes,estado,tempo_repeticao_s,campos_divergentes
+b01bf237d3ca2a7d5b02b8e531fef86fcba1dd9334d214578f4a104ec9703143,1563,43,K6_AND_OR_NAND_NOR_XOR_NOT,40,FULL,melhor circuito,20000,confirmada,30.97029160000966,
+77a316229d3ce19f0648827f0e015ad2628f852bcfb56419fd0fe46ab7a8fe17,599,24,K4_OR_NAND_NOR_NOT,40,FULL,amostra aleatória,20000,confirmada,37.66674060001969,
+26e08fc8c53bd49a1f6ac9e4e82bbd3b4aa7d3eab142c5e7af04582c557de9dd,93,31,K4_AND_OR_NAND_NOT,40,FULL,amostra aleatória,20000,confirmada,33.56165090002469,
+f5d0f4782a128643b26aa256ded758ce9227eb41f36e963d61d7cb6602219408,899,27,K4_NAND_XOR_XNOR_NOT,40,FULL,amostra aleatória,20000,confirmada,32.40155430001323,
