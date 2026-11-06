@@ -1,0 +1,9 @@
+{
+  "duplicadas_descartadas": [],
+  "avisos_validacao": [],
+  "politica": "A última linha de cada configuração+seed é mantida; repetições da mesma seed não contam como novas réplicas.",
+  "tentativas_erro_tecnico": 0,
+  "execucoes_ultimo_estado_erro": 0,
+  "execucoes_com_commit": 1728,
+  "planejadas": 1728
+}

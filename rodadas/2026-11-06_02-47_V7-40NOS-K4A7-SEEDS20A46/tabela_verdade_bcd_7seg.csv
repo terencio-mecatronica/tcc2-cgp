@@ -1,0 +1,17 @@
+﻿decimal,A_peso_8,B_peso_4,C_peso_2,D_peso_1,a,b,c,d,e,f,g,segmentos_acesos,tratamento
+0,0,0,0,0,1,1,1,1,1,1,0,a b c d e f,dígito válido
+1,0,0,0,1,0,1,1,0,0,0,0,b c,dígito válido
+2,0,0,1,0,1,1,0,1,1,0,1,a b d e g,dígito válido
+3,0,0,1,1,1,1,1,1,0,0,1,a b c d g,dígito válido
+4,0,1,0,0,0,1,1,0,0,1,1,b c f g,dígito válido
+5,0,1,0,1,1,0,1,1,0,1,1,a c d f g,dígito válido
+6,0,1,1,0,1,0,1,1,1,1,1,a c d e f g,dígito válido
+7,0,1,1,1,1,1,1,0,0,0,0,a b c,dígito válido
+8,1,0,0,0,1,1,1,1,1,1,1,a b c d e f g,dígito válido
+9,1,0,0,1,1,1,1,1,0,1,1,a b c d f g,dígito válido
+10,1,0,1,0,X,X,X,X,X,X,X,indefinido,don't care; fora do fitness
+11,1,0,1,1,X,X,X,X,X,X,X,indefinido,don't care; fora do fitness
+12,1,1,0,0,X,X,X,X,X,X,X,indefinido,don't care; fora do fitness
+13,1,1,0,1,X,X,X,X,X,X,X,indefinido,don't care; fora do fitness
+14,1,1,1,0,X,X,X,X,X,X,X,indefinido,don't care; fora do fitness
+15,1,1,1,1,X,X,X,X,X,X,X,indefinido,don't care; fora do fitness

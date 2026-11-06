@@ -1,0 +1,11 @@
+AUTOTESTE V4 DAS PRIMITIVAS LOGICAS
+============================================
+Status geral: APROVADO
+
+AND: OK | OK
+OR: OK | OK
+NAND: OK | OK
+NOR: OK | OK
+XOR: OK | OK
+XNOR: OK | OK
+NOT: OK | OK

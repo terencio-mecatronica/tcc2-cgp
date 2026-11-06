@@ -8,5 +8,15 @@
     "equivalentes": 1102,
     "hits_percentual": 63.773148148148145,
     "melhor_portas": 13
+  },
+  {
+    "rodada": "2026-11-06_02-47_V7-40NOS-K4A7-SEEDS20A46",
+    "pasta": "2026-11-06_02-47_V7-40NOS-K4A7-SEEDS20A46",
+    "versao": "TCC2-ESPACO-BUSCA-v7.1-DESEMPENHO",
+    "publicada_em": "2026-11-06T11:36:45+00:00",
+    "execucoes": 1728,
+    "equivalentes": 1102,
+    "hits_percentual": 63.773148148148145,
+    "melhor_portas": 13
   }
 ]
