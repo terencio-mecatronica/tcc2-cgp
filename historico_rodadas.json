@@ -1,22 +1,40 @@
 [
-  {
-    "rodada": "2026-10-08_03-32_V7-40NOS-K4A7-SEEDS20A46",
-    "pasta": "2026-10-08_03-32_V7-40NOS-K4A7-SEEDS20A46",
-    "versao": "TCC2-ESPACO-BUSCA-v7-WIKI-VALIDACAO",
-    "publicada_em": "2026-10-08T19:24:23+00:00",
-    "execucoes": 1728,
-    "equivalentes": 1102,
-    "hits_percentual": 63.773148148148145,
-    "melhor_portas": 13
-  },
-  {
-    "rodada": "2026-11-06_02-47_V7-40NOS-K4A7-SEEDS20A46",
-    "pasta": "2026-11-06_02-47_V7-40NOS-K4A7-SEEDS20A46",
-    "versao": "TCC2-ESPACO-BUSCA-v7.1-DESEMPENHO",
-    "publicada_em": "2026-11-06T11:36:45+00:00",
-    "execucoes": 1728,
-    "equivalentes": 1102,
-    "hits_percentual": 63.773148148148145,
-    "melhor_portas": 13
-  }
+    {
+        "value":  [
+                      {
+                          "rodada":  "2026-10-08_03-32_V7-40NOS-K4A7-SEEDS20A46",
+                          "pasta":  "2026-10-08_03-32_V7-40NOS-K4A7-SEEDS20A46",
+                          "versao":  "TCC2-ESPACO-BUSCA-v7-WIKI-VALIDACAO",
+                          "publicada_em":  "2026-10-08T19:24:23+00:00",
+                          "execucoes":  1728,
+                          "equivalentes":  1102,
+                          "hits_percentual":  63.773148148148145,
+                          "melhor_portas":  13
+                      },
+                      {
+                          "rodada":  "2026-11-06_02-47_V7-40NOS-K4A7-SEEDS20A46",
+                          "pasta":  "2026-11-06_02-47_V7-40NOS-K4A7-SEEDS20A46",
+                          "versao":  "TCC2-ESPACO-BUSCA-v7.1-DESEMPENHO",
+                          "publicada_em":  "2026-11-06T11:36:45+00:00",
+                          "execucoes":  1728,
+                          "equivalentes":  1102,
+                          "hits_percentual":  63.773148148148145,
+                          "melhor_portas":  13
+                      }
+                  ],
+        "Count":  2
+    },
+    {
+        "rodada":  "2026-11-09_14-33_V8-SAM-N40-K1A7-LBFULL_5_10-S20A46-G20000-P4-BITS-H1a474b46",
+        "pasta":  "2026-11-09_14-33_V8-SAM-N40-K1A7-LBFULL_5_10-S20A46-G20000-P4-BITS-H1a474b46",
+        "versao":  "V8.0.1-SAM-ANALISE-CONSOLIDADA",
+        "publicada_em":  "2026-11-10T02:37:09.0133688Z",
+        "execucoes":  10287,
+        "equivalentes":  4949,
+        "hits_percentual":  48.1092641197628,
+        "melhor_portas":  14,
+        "modo_mutacao":  "SAM_ITERATIVO",
+        "quartus":  "pendente",
+        "fpga":  "pendente"
+    }
 ]

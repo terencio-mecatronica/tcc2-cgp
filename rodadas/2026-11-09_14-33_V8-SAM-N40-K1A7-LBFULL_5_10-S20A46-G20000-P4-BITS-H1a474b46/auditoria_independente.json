@@ -1,0 +1,7 @@
+{
+  "execucoes_auditadas": 10287,
+  "fitness_portas_profundidade_conexoes": "confirmados",
+  "algoritmo": "avaliador escalar independente, todos os genotipos finais",
+  "dominio": "BCD 0-9",
+  "observacao": "Nao reexecuta todos os trajetos evolutivos."
+}

@@ -1,0 +1,88 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TCC2 · Guia Quartus / DE2-115</title><link rel="stylesheet" href="estilo.css"></head><body><main><p><a href="index.html#validacao">← Voltar à análise</a></p><section><h1>TCC2 — validação na Terasic DE2-115</h1>
+<h2>Material necessário</h2>
+<p>DE2-115 com fonte do fabricante; cabo USB para o conector USB-Blaster da placa; computador com Quartus Prime Lite ou Standard com suporte ao Cyclone IV E e driver USB-Blaster. Use as chaves e o display da própria placa. Não são necessários componentes externos para este ensaio combinacional.</p>
+<h2>O que já foi verificado</h2>
+<p>Os 15 projetos deste pacote passaram em simulação com Icarus Verilog 11.0: núcleo e adaptação para o display conferem as 10 entradas BCD válidas, 70 bits de saída em cada camada. A compilação no Quartus e o ensaio físico estão PENDENTES. Simulação HDL não comprova pinagem, alimentação ou funcionamento físico.</p>
+<p>Comece por <code>E8274_seed31_14portas</code> (SAM atual, profundidade 5). Depois teste <code>HIST_DIRETA_E1563_seed43_13portas</code> (recorde anterior, mutação direta), <code>E3667_seed41_15portas</code> (SAM atual, profundidade 4) e <code>E4540_seed23_20portas</code> (representante da moda atual). Consulte a seleção para o nome exato. Os demais empates de 14 portas foram preservados, além de um representante histórico de 18 portas. A repetição da contagem não significa que sejam circuitos idênticos.</p>
+<h2>Antes de compilar</h2>
+<ol>
+<li>Confira o modelo da placa: DE2-115. O projeto usa EP4CE115F29C7; confira o código do FPGA da sua unidade antes de manter essa seleção.</li>
+<li>Consulte o manual DE2-115, seções de chaves, displays e HSMC. Os pinos usados foram transcritos das tabelas 4-2 e 4-4.</li>
+<li>O QSF foi preparado para JP7 em 2,5 V (jumper nos pinos 5 e 6, padrão indicado no manual). Confira o jumper com a placa desligada. Os pinos HEX0[0..2] são de 2,5 V; as chaves e HEX0[3..6] dependem do JP7. Se sua placa tiver outra configuração, ajuste os padrões dos respectivos bancos no Quartus conforme o manual. Não altere JP6 para este projeto.</li>
+</ol>
+<h2>Passo a passo no Quartus</h2>
+<ol>
+<li>Extraia o ZIP inteiro em uma pasta local. Entre na pasta do circuito escolhido e abra <code>decoder.qpf</code> pelo Quartus. Não abra todas as pastas como um único projeto.</li>
+<li>Em Assignments &gt; Device, confira Cyclone IV E / EP4CE115F29C7. O top-level é <code>top_de2_115</code>. Somente <code>circuito.v</code> e <code>top_de2_115.v</code> participam da síntese. <code>tb.v</code> é exclusivo da simulação.</li>
+<li>Em Assignments &gt; Pin Planner, confira SW[3:0] e HEX0[6:0] com a tabela abaixo. Não é necessário associar clock: o circuito é combinacional.</li>
+<li>Execute Processing &gt; Start Compilation. Salve os relatórios, incluindo erros e avisos. Avisos de ausência de clock/SDC não fornecem medida de atraso: este ensaio não apresenta análise temporal.</li>
+<li>Ligue a placa com a fonte adequada, conecte o cabo USB-Blaster e selecione o modo JTAG. Abra Tools &gt; Programmer &gt; Hardware Setup e escolha USB-Blaster. Use Auto Detect se necessário.</li>
+<li>Adicione <code>output_files/decoder.sof</code>, marque Program/Configure e clique Start. Esta é programação volátil via JTAG; não é necessário gravar a memória de configuração.</li>
+<li>Aplique SW[3:0] de 0000 até 1001, observando HEX0. SW3 é A (peso 8), SW2 é B (4), SW1 é C (2), SW0 é D (1). Cada padrão deve mostrar o dígito correspondente. Aguarde as chaves estabilizarem; comutação mecânica não é ensaio de atraso.</li>
+<li>Preencha <code>registro_ensaio.csv</code> e preserve foto/vídeo identificado e relatórios do projeto. Para cada circuito, registre versão do Quartus, dispositivo, recursos do Compilation Report, resultado dos dez dígitos e eventuais diferenças. Só então marque o teste físico como aprovado.</li>
+</ol>
+<table>
+<thead>
+<tr>
+  <th>Sinal</th>
+  <th>Pino</th>
+  <th>Sinal</th>
+  <th>Pino</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>SW[0]</td>
+  <td>AB28</td>
+  <td>HEX0[0] (a)</td>
+  <td>G18</td>
+</tr>
+<tr>
+  <td>SW[1]</td>
+  <td>AC28</td>
+  <td>HEX0[1] (b)</td>
+  <td>F22</td>
+</tr>
+<tr>
+  <td>SW[2]</td>
+  <td>AC27</td>
+  <td>HEX0[2] (c)</td>
+  <td>E17</td>
+</tr>
+<tr>
+  <td>SW[3]</td>
+  <td>AD27</td>
+  <td>HEX0[3] (d)</td>
+  <td>L26</td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td>HEX0[4] (e)</td>
+  <td>L25</td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td>HEX0[5] (f)</td>
+  <td>J22</td>
+</tr>
+<tr>
+  <td></td>
+  <td></td>
+  <td>HEX0[6] (g)</td>
+  <td>H22</td>
+</tr>
+</tbody>
+</table>
+<p>O núcleo usa 1 para segmento aceso; a placa usa 0. A linha <code>assign HEX0 = ~{g,f,e,d,c,b,a};</code> faz a inversão e mantém HEX0[0]=a. Não inverta novamente no Pin Planner.</p>
+<h2>Domínio e comparação</h2>
+<p>BCD 10–15 é don't care e não integra os critérios de aprovação. Os desenhos de 6 e 9 são os da tabela do projeto (a aceso no 6; d aceso no 9). A contagem de portas CGP não é a contagem de elementos lógicos do FPGA. O Quartus pode reescrever a lógica e mapear circuitos distintos em recursos semelhantes. Registre recursos pós-compilação sem convertê-los em “portas CGP”. Área física, consumo e atraso não são estimados neste pacote.</p>
+<h2>Repetir a simulação</h2>
+<p>Com Icarus instalado, dentro de uma pasta de projeto:</p>
+<pre><code class="language-powershell">iverilog -g2012 -s tb -o simulacao circuito.v top_de2_115.v tb.v
+vvp simulacao
+</code></pre>
+<p>O testbench compara núcleo e wrapper separadamente e termina com erro se houver divergência. Os arquivos <code>simulacao_hdl.txt</code> registram a execução já realizada, e <code>validacao.json</code> mantém origem, seed e SHA-256 do núcleo.</p>
+<p>Referência do fabricante: https://www.terasic.com.tw/attachment/archive/502/DE2_115_User_manual.pdf</p>
+</section></main></body></html>

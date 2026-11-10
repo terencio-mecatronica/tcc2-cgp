@@ -1,0 +1,382 @@
+﻿nos,conjunto,levels_back,replicas,sucessos,melhor_fitness,fitness_max,diagnostico
+40,K1_AND,FULL,27,0,39,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_AND,5,27,0,39,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_AND,10,27,0,39,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_OR,FULL,27,0,54,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_OR,5,27,0,54,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_OR,10,27,0,54,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_NAND,FULL,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K1_NAND,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K1_NAND,10,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K1_NOR,FULL,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K1_NOR,5,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K1_NOR,10,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K1_XOR,FULL,27,0,53,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_XOR,5,27,0,53,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_XOR,10,27,0,53,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K1_XNOR,FULL,27,0,56,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K1_XNOR,5,27,0,56,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K1_XNOR,10,27,0,56,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K1_NOT,FULL,27,0,51,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K1_NOT,5,27,0,51,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K1_NOT,10,27,0,51,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_AND_OR,FULL,27,0,56,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_AND_OR,5,27,0,56,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_AND_OR,10,27,0,56,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_AND_NAND,FULL,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_AND_NAND,5,27,0,69,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico. NAND ou NOR isoladamente é universal com recursos suficientes; o fracasso não prova incapacidade do conjunto."
+40,K2_AND_NAND,10,27,4,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_AND_NOR,FULL,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_AND_NOR,5,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_AND_NOR,10,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_AND_XOR,FULL,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_AND_XOR,5,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_AND_XOR,10,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_AND_XNOR,FULL,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_AND_XNOR,5,27,4,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_AND_XNOR,10,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_AND_NOT,FULL,27,0,67,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico."
+40,K2_AND_NOT,5,27,0,66,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico."
+40,K2_AND_NOT,10,27,0,67,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico."
+40,K2_OR_NAND,FULL,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_NAND,5,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_NAND,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_NOR,FULL,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_NOR,5,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_NOR,10,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_XOR,FULL,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_OR_XOR,5,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_OR_XOR,10,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K2_OR_XNOR,FULL,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_XNOR,5,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_XNOR,10,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_OR_NOT,FULL,27,0,66,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico."
+40,K2_OR_NOT,5,27,0,67,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico."
+40,K2_OR_NOT,10,27,0,67,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico."
+40,K2_NAND_NOR,FULL,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_NOR,5,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_NOR,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_XOR,FULL,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_XOR,5,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_XOR,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_XNOR,FULL,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_XNOR,5,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_XNOR,10,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_NOT,FULL,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_NOT,5,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NAND_NOT,10,27,4,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_XOR,FULL,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_XOR,5,27,1,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_XOR,10,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_XNOR,FULL,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_XNOR,5,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_XNOR,10,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_NOT,FULL,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_NOT,5,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_NOR_NOT,10,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K2_XOR_XNOR,FULL,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_XOR_XNOR,5,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_XOR_XNOR,10,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_XOR_NOT,FULL,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_XOR_NOT,5,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_XOR_NOT,10,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_XNOR_NOT,FULL,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_XNOR_NOT,5,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K2_XNOR_NOT,10,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K3_AND_OR_NAND,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_NAND,5,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_NAND,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_NOR,FULL,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_NOR,5,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_NOR,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_XOR,FULL,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K3_AND_OR_XOR,5,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K3_AND_OR_XOR,10,27,0,64,70,Limitação demonstrável: estas portas preservam zero; a referência acende segmentos para BCD 0000.
+40,K3_AND_OR_XNOR,FULL,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_XNOR,5,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_XNOR,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_NOT,FULL,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_NOT,5,27,1,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_OR_NOT,10,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_NOR,FULL,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_NOR,5,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_NOR,10,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_XOR,FULL,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_XOR,5,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_XOR,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_XNOR,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_XNOR,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_XNOR,10,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_NOT,FULL,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NAND_NOT,5,27,0,69,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico. NAND ou NOR isoladamente é universal com recursos suficientes; o fracasso não prova incapacidade do conjunto."
+40,K3_AND_NAND_NOT,10,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_XOR,FULL,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_XOR,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_XOR,10,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_XNOR,FULL,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_XNOR,5,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_XNOR,10,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_NOT,FULL,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_NOT,5,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_NOR_NOT,10,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_XOR_XNOR,FULL,27,4,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_XOR_XNOR,5,27,0,69,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico."
+40,K3_AND_XOR_XNOR,10,27,1,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_XOR_NOT,FULL,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_XOR_NOT,5,27,0,69,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico."
+40,K3_AND_XOR_NOT,10,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_XNOR_NOT,FULL,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_XNOR_NOT,5,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_AND_XNOR_NOT,10,27,3,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_NOR,FULL,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_NOR,5,27,0,69,70,"Nenhum sucesso observado. Não distingue insuficiência de nós, conectividade e orçamento estocástico. NAND ou NOR isoladamente é universal com recursos suficientes; o fracasso não prova incapacidade do conjunto."
+40,K3_OR_NAND_NOR,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_XOR,FULL,27,27,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_XOR,5,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_XOR,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_XNOR,FULL,27,26,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_XNOR,5,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_XNOR,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_NOT,FULL,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_NOT,5,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NAND_NOT,10,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_XOR,FULL,27,26,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_XOR,5,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_XOR,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_XNOR,FULL,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_XNOR,5,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_XNOR,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_NOT,FULL,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_NOT,5,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_NOR_NOT,10,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XOR_XNOR,FULL,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XOR_XNOR,5,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XOR_XNOR,10,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XOR_NOT,FULL,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XOR_NOT,5,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XOR_NOT,10,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XNOR_NOT,FULL,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XNOR_NOT,5,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_OR_XNOR_NOT,10,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_XOR,FULL,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_XOR,5,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_XOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_XNOR,FULL,27,26,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_XNOR,5,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_XNOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_NOT,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_NOT,5,27,4,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_NOR_NOT,10,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XOR_XNOR,FULL,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XOR_XNOR,5,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XOR_XNOR,10,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XOR_NOT,FULL,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XOR_NOT,5,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XOR_NOT,10,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XNOR_NOT,FULL,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XNOR_NOT,5,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NAND_XNOR_NOT,10,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XOR_XNOR,FULL,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XOR_XNOR,5,27,3,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XOR_XNOR,10,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XOR_NOT,FULL,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XOR_NOT,5,27,1,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XOR_NOT,10,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XNOR_NOT,FULL,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XNOR_NOT,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_NOR_XNOR_NOT,10,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K3_XOR_XNOR_NOT,FULL,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K3_XOR_XNOR_NOT,5,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K3_XOR_XNOR_NOT,10,27,0,59,70,Somente funções afins; a referência BCD 0–9 não é toda afim. Restrição expressiva.
+40,K4_AND_OR_NAND_NOR,FULL,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_NOR,5,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_NOR,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_XOR,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_XOR,5,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_XOR,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_XNOR,FULL,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_XNOR,5,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_XNOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_NOT,FULL,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_NOT,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NAND_NOT,10,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_XOR,FULL,27,26,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_XOR,5,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_XOR,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_XNOR,FULL,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_XNOR,5,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_XNOR,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_NOT,FULL,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_NOT,5,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_NOR_NOT,10,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XOR_XNOR,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XOR_XNOR,5,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XOR_XNOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XOR_NOT,FULL,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XOR_NOT,5,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XOR_NOT,10,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XNOR_NOT,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XNOR_NOT,5,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_OR_XNOR_NOT,10,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_XOR,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_XOR,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_XOR,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_XNOR,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_XNOR,5,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_XNOR,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_NOT,FULL,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_NOT,5,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_NOR_NOT,10,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XOR_XNOR,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XOR_XNOR,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XOR_XNOR,10,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XOR_NOT,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XOR_NOT,5,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XOR_NOT,10,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XNOR_NOT,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XNOR_NOT,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NAND_XNOR_NOT,10,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XOR_XNOR,FULL,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XOR_XNOR,5,27,6,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XOR_XNOR,10,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XOR_NOT,FULL,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XOR_NOT,5,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XOR_NOT,10,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XNOR_NOT,FULL,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XNOR_NOT,5,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_NOR_XNOR_NOT,10,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_XOR_XNOR_NOT,FULL,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_XOR_XNOR_NOT,5,27,1,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_AND_XOR_XNOR_NOT,10,27,2,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_XOR,FULL,27,26,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_XOR,5,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_XOR,10,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_XNOR,FULL,27,26,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_XNOR,5,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_XNOR,10,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_NOT,FULL,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_NOT,5,27,7,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_NOR_NOT,10,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XOR_XNOR,FULL,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XOR_XNOR,5,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XOR_XNOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XOR_NOT,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XOR_NOT,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XOR_NOT,10,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XNOR_NOT,FULL,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XNOR_NOT,5,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NAND_XNOR_NOT,10,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XOR_XNOR,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XOR_XNOR,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XOR_XNOR,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XOR_NOT,FULL,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XOR_NOT,5,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XOR_NOT,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XNOR_NOT,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XNOR_NOT,5,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_NOR_XNOR_NOT,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_XOR_XNOR_NOT,FULL,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_XOR_XNOR_NOT,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_OR_XOR_XNOR_NOT,10,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XOR_XNOR,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XOR_XNOR,5,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XOR_XNOR,10,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XOR_NOT,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XOR_NOT,5,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XOR_NOT,10,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XNOR_NOT,FULL,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XNOR_NOT,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_NOR_XNOR_NOT,10,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_XOR_XNOR_NOT,FULL,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_XOR_XNOR_NOT,5,27,3,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NAND_XOR_XNOR_NOT,10,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NOR_XOR_XNOR_NOT,FULL,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NOR_XOR_XNOR_NOT,5,27,4,70,70,Há soluções funcionais observadas neste orçamento.
+40,K4_NOR_XOR_XNOR_NOT,10,27,5,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_XOR,FULL,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_XOR,5,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_XOR,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_XNOR,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_XNOR,5,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_XNOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_NOT,FULL,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_NOT,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_NOR_NOT,10,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XOR_XNOR,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XOR_XNOR,5,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XOR_XNOR,10,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XOR_NOT,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XOR_NOT,5,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XOR_NOT,10,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XNOR_NOT,FULL,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XNOR_NOT,5,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NAND_XNOR_NOT,10,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XOR_XNOR,FULL,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XOR_XNOR,5,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XOR_XNOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XOR_NOT,FULL,27,26,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XOR_NOT,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XOR_NOT,10,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XNOR_NOT,FULL,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XNOR_NOT,5,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_NOR_XNOR_NOT,10,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_XOR_XNOR_NOT,FULL,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_XOR_XNOR_NOT,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_OR_XOR_XNOR_NOT,10,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XOR_XNOR,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XOR_XNOR,5,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XOR_XNOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XOR_NOT,FULL,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XOR_NOT,5,27,9,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XOR_NOT,10,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XNOR_NOT,FULL,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XNOR_NOT,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_NOR_XNOR_NOT,10,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_XOR_XNOR_NOT,FULL,27,17,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_XOR_XNOR_NOT,5,27,8,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NAND_XOR_XNOR_NOT,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NOR_XOR_XNOR_NOT,FULL,27,18,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NOR_XOR_XNOR_NOT,5,27,4,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_AND_NOR_XOR_XNOR_NOT,10,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XOR_XNOR,FULL,27,26,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XOR_XNOR,5,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XOR_XNOR,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XOR_NOT,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XOR_NOT,5,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XOR_NOT,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XNOR_NOT,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XNOR_NOT,5,27,12,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_NOR_XNOR_NOT,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_XOR_XNOR_NOT,FULL,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_XOR_XNOR_NOT,5,27,11,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NAND_XOR_XNOR_NOT,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NOR_XOR_XNOR_NOT,FULL,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NOR_XOR_XNOR_NOT,5,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_OR_NOR_XOR_XNOR_NOT,10,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_NAND_NOR_XOR_XNOR_NOT,FULL,27,19,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_NAND_NOR_XOR_XNOR_NOT,5,27,13,70,70,Há soluções funcionais observadas neste orçamento.
+40,K5_NAND_NOR_XOR_XNOR_NOT,10,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XOR_XNOR,FULL,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XOR_XNOR,5,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XOR_XNOR,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XOR_NOT,FULL,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XOR_NOT,5,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XOR_NOT,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XNOR_NOT,FULL,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XNOR_NOT,5,27,14,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_NOR_XNOR_NOT,10,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_XOR_XNOR_NOT,FULL,27,25,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_XOR_XNOR_NOT,5,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NAND_XOR_XNOR_NOT,10,27,23,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NOR_XOR_XNOR_NOT,FULL,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NOR_XOR_XNOR_NOT,5,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_OR_NOR_XOR_XNOR_NOT,10,27,20,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_NAND_NOR_XOR_XNOR_NOT,FULL,27,24,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_NAND_NOR_XOR_XNOR_NOT,5,27,10,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_AND_NAND_NOR_XOR_XNOR_NOT,10,27,21,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_OR_NAND_NOR_XOR_XNOR_NOT,FULL,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_OR_NAND_NOR_XOR_XNOR_NOT,5,27,16,70,70,Há soluções funcionais observadas neste orçamento.
+40,K6_OR_NAND_NOR_XOR_XNOR_NOT,10,27,22,70,70,Há soluções funcionais observadas neste orçamento.
+40,K7_AND_OR_NAND_NOR_XOR_XNOR_NOT,FULL,27,27,70,70,Há soluções funcionais observadas neste orçamento.
+40,K7_AND_OR_NAND_NOR_XOR_XNOR_NOT,5,27,15,70,70,Há soluções funcionais observadas neste orçamento.
+40,K7_AND_OR_NAND_NOR_XOR_XNOR_NOT,10,27,24,70,70,Há soluções funcionais observadas neste orçamento.
